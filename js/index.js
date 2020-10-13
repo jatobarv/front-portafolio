@@ -25,9 +25,12 @@ async function login(username, password){
         action: 'post login'
     })
 
-    localStorage.setItem('Token', response.token)
-
-    location.replace('./principal.html')
+    if (response) {
+        localStorage.setItem('Token', response.token )
+        location.replace('./principal.html')
+    }else{
+        alert('Usuario y/o Contraseña Inválidos')
+    }
 }
 
 d.addEventListener('submit', event => {
