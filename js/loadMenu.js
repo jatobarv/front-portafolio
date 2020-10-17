@@ -58,4 +58,5 @@ d.addEventListener('DOMContentLoaded', (event) => {
     async function navLogout(){
         await logout();
     }
+
 })
