@@ -88,8 +88,23 @@ async function getPerm(permNumber){
     return response.rol_usuario
 }
 
+async function logout(){
+    const token = localStorage.getItem('Token');
+    const response = await apiRequest({
+        url: 'http://127.0.0.1:8000/logout/'+token,
+        method: 'GET',
+        action: 'get logout',
+        token
+    })
+
+    if (response || localStorage.getItem('Token')){
+        localStorage.removeItem('Token')
+        location.replace('./index.html')
+    }
+}
 
 export {
     apiRequest,
-    getPerm
+    getPerm,
+    logout
 }
