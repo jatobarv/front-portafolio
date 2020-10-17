@@ -97,16 +97,19 @@ getPermisos()
 //     return dataPromise
 // }
 
-async function addRol(name, permisos){
-    axios({
-        url: 'http://127.0.0.1:8000/roles/',
-        method: 'POST',
+
+
+async function addRol(name, permissions){
+    const response = await apiRequest({
+        url: 'http://127.0.0.1:8000/roles/' ,
+        method: "POST",
+        token: token, 
         body: {
             name,
-            permisos
-        },
-        action: 'post roles'
-    })
+            permissions
+        }, 
+        action: 'post roles'})
+    console.log(response);
 
     localStorage.setItem('Token', token)
 
@@ -115,9 +118,13 @@ async function addRol(name, permisos){
 
 d.addEventListener('submit', event => {
     event.preventDefault();
-    const target = event.target
+    const target = event.target;
 
+    var selected = [];
+    for (var option of document.getElementById('select-permisos-elegidos').options) {
+            selected.push(option.value);
+        }
     if (target.id === 'roles-form'){
-        addRol(target.name.value, target.permisos.value)
+        addRol(target.rolName.value, selected);
     }
 })
