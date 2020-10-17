@@ -8,15 +8,35 @@
 </head>
 
 <body>
-    <div id="roles">
-        <label for="rolName">Nombre rol</label>
-        <input type="text" id="rolName" name="rolName"><br><br>
-    </div>
-    <div id="select-permisos">
-        <label for="permisos">Permisos</label>
-        <select name="permisos" id="permisos"></select>
-    </div>
+    <form id="roles-form">
 
+        <div id="roles">
+            <label for="rolName">Nombre rol</label>
+            <input type="text" id="rolName" name="rolName"><br><br>
+        </div>
+        <div id="permisos-disponibles">
+            <label for="permisos">Permisos disponibles</label>
+            <select style="width: 180px;" size="10" name="permisos" id="select-permisos"></select>
+        </div>
+        <div id="selector">
+            <ul id="selectores">
+                <li><a onclick="addPermiso()" title="Elegir" href="#" id="id_permissions_add_link"
+                        class="selector-add">Elegir</a></li>
+                <li><a onclick="removePermiso()" title="Quitar" href="#" id="id_permissions_add_link"
+                        class="selector-add">Quitar</a></li>
+            </ul>
+        </div>
+        <div id="permisos-elegidos">
+            <label for="permisos">Permisos elegidos</label>
+            <select style="width: 180px;" size="10" name="permisos" id="select-permisos-elegidos"></select>
+        </div>
+        <button type="submit">Crear rol</button>
+
+    </form>
+
+    <script src="../../js/addRol.js"></script>
+    <script type="module" src="../../js/roles.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
