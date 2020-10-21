@@ -13,11 +13,10 @@ const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
     {label: 'Cerrer Sesion', id: 'navLogout',url: '#', perms:[0]}
 ]
 
-
 d.addEventListener('DOMContentLoaded', (event) => {
     (async function loadMenu(){
         const $fragment = new DocumentFragment() //FRAGMENTO DE HTML PARA AGREGARLE PARAMETROS ANTES DE INSERTARLO TODO EN EL HTML
-        const $nav = d.querySelector('#nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
+        const $nav = d.querySelector('#nav') || d.querySelector('nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
         const $ul = d.createElement('ul');  //UL PARA AGREGAR LA LISTA
 
         

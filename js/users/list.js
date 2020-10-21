@@ -1,25 +1,45 @@
 import { apiRequest } from '../module.js'
+
 const d = document;
 let users;
 
+//DOM Content
+const $userId = d.querySelector('#userId')
+const $username = d.querySelector('#username')
+const $password = d.querySelector('#password')
+const $rut = d.querySelector('#rut')
+const $nombre = d.querySelector('#nombre')
+const $apellido = d.querySelector('#apellido')
+const $email = d.querySelector('#email')
+const $telefono = d.querySelector('#telefono')
+const $direccion = d.querySelector('#direccion')
+const $region = d.querySelector('#region')
+const $rol = d.querySelector('#rol')
+const $is_active = d.querySelector('#is_active')
+const $btnSubmit = d.querySelector('#btnSubmit')
 
-d.addEventListener('DOMContentLoaded', async (event) => {
+//Functions
+function limpiarTodo (){
+    $userId.value = ''
+    $username.value = ''
+    $password.value = ''
+    $rut.value = ''
+    $nombre.value = ''
+    $apellido.value = ''
+    $email.value = ''
+    $telefono.value = ''
+    $region.value = ''
+    $direccion.value = ''
+    $rol.value = ''
+    $is_active.checked = true
+    $btnSubmit.textContent = "Aceptar"
+}
+
+function loadUserList(){
     const $tbody = d.querySelector('tbody')
-    const $fragment = new DocumentFragment()
-    const token = localStorage.getItem('Token')
-    const $rol = d.querySelector('#rol')
-
-    const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/usuarios/',
-        method: "GET",
-        token,
-        action: "get users"
-    });
-    
-    users = response.results
-    
+    $tbody.innerHTML = ""
     const $template = d.querySelector('#userTemplate')
-    
+    const $fragment = new DocumentFragment()
     users.forEach(user => {
         const $clone = $template.content.cloneNode(true)
         const $tr = $clone.querySelector('tr')
@@ -28,9 +48,6 @@ d.addEventListener('DOMContentLoaded', async (event) => {
         
         $button.textContent = "EDITAR"
         $button.name = "editarUsuario"
-        $button.classList.add("btn", "btn-info");
-        $button.setAttribute("data-toggle","modal")
-        $button.setAttribute("data-target","#exampleModal")
         $button.setAttribute("data-user-id",user.id)
 
         $td[0].textContent = user.username
@@ -41,6 +58,21 @@ d.addEventListener('DOMContentLoaded', async (event) => {
     }); 
 
     $tbody.append($fragment)
+}
+d.addEventListener('DOMContentLoaded', async (event) => {
+    const $fragment = new DocumentFragment()
+    const token = localStorage.getItem('Token')
+    
+    const response = await apiRequest({
+        url: 'http://127.0.0.1:8000/usuarios/',
+        method: "GET",
+        token,
+        action: "get users"
+    });
+    
+    users = response.results
+    
+    await loadUserList()
 
     const roles = await apiRequest({
         url: 'http://127.0.0.1:8000/roles/',
@@ -63,72 +95,68 @@ d.addEventListener('DOMContentLoaded', async (event) => {
 d.addEventListener('click', event => {
     const target = event.target;
 
-    if(target.name == 'editarUsuario' || target.name == 'crearUsuario' ){
-        d.querySelector('#userHeader').textContent = target.dataset.userId ? "EDITAR USUARIO" : "CREAR USUARIO"
-
-        const $userId = d.querySelector('#userId')
-        const $username = d.querySelector('#username')
-        const $password = d.querySelector('#password')
-        const $rut = d.querySelector('#rut')
-        const $nombre = d.querySelector('#nombre')
-        const $apellido = d.querySelector('#apellido')
-        const $email = d.querySelector('#email')
-        const $telefono = d.querySelector('#telefono')
-        const $direccion = d.querySelector('#direccion')
-        const $region = d.querySelector('#region')
-        const $rol = d.querySelector('#rol')
-        const $is_active = d.querySelector('#is_active')
+    if(target.name == 'editarUsuario' || target.name == 'cancelar'){
 
         if (target.dataset.userId){
             const id = target.dataset.userId
             let userFound;
-    
+            $btnSubmit.textContent = "Editar"
+
             users.forEach(user =>{
                 if (user.id == id){
                     userFound = user
                 }
             })
             if (userFound){
-                console.log(userFound)
+                $userId.value = userFound.id || ''
                 $username.value = userFound.username || ''
                 $rut.value = userFound.rut || ''
                 $nombre.value = userFound.nombre || ''
                 $apellido.value = userFound.apellido || ''
                 $email.value = userFound.email || ''
                 $telefono.value = userFound.telefono || ''
+                $direccion.value = userFound.direccion || ''
                 $region.value = userFound.region || ''
                 $rol.value = userFound.rol_usuario || ''
                 $is_active.checked = userFound.is_active
             }
         }
+
+        if(target.name == 'cancelar'){
+            limpiarTodo()
+        }
     }
 })
 
 d.addEventListener('submit', async (event) => {
+    event.preventDefault()
     const target = event.target;
+    console.log(target)
+    if (target.id == "userForm"){
+        const body = {
+            username: $username.value,
+            rut: $rut.value,
+            nombre: $nombre.value,
+            apellido: $apellido.value,
+            email: $email.value,
+            telefono: $telefono.value,
+            password: $password.value,
+            direccion: $direccion.value,
+            region: $region.value,
+            rol_usuario: $rol.value,
+            is_active: $is_active.checked
+        }
+        const response = await apiRequest({
+            url: $userId.value ? 'http://127.0.0.1:8000/usuarios/'+$userId.value+'/' : 'http://127.0.0.1:8000/usuarios/',
+            method: $userId.value ? 'PUT' : 'POST',
+            token: localStorage.getItem('Token'),
+            body,
+            action: 'postUser'
+        })
 
-    if (target.name == "crearUsuario"){
-        const $userId = d.querySelector('#userId')
-        const $username = d.querySelector('#username')
-        const $password = d.querySelector('#password')
-        const $rut = d.querySelector('#rut')
-        const $nombre = d.querySelector('#nombre')
-        const $apellido = d.querySelector('#apellido')
-        const $email = d.querySelector('#email')
-        const $telefono = d.querySelector('#telefono')
-        const $direccion = d.querySelector('#direccion')
-        const $region = d.querySelector('#region')
-        const $rol = d.querySelector('#rol')
-        const $is_active = d.querySelector('#is_active')
-
-        $username.value = userFound.username
-        $rut.value
-        $nombre.value
-        $apellido.value
-        $email.value
-        $telefono.value
-        $region.value
-        $rol.value
-        $is_active.checked = true
+        if (users.find((user) => user.id == response.id)){
+            users[users.findIndex(user => user.id == response.id)] = response
+            loadUserList()
+        }
     }
 })
