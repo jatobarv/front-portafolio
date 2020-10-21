@@ -1,4 +1,3 @@
-
 var select = document.getElementById("select-permisos");
 var elegido = document.getElementById("select-permisos-elegidos");
 

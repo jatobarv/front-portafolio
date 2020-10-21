@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Roles</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+
+    <body>
+        <li><a href="./deleteRol.html">Eliminar rol</a></li>
+        <li><a href="../principal.html">Principal</a></li>
+
+        <form id="roles-form">
+            <div id="roles">
+                <label for="rolName">Nombre rol</label>
+                <input type="text" id="rolName" name="rolName" /><br /><br />
+            </div>
+            <div id="permisos-disponibles">
+                <label for="permisos">Permisos disponibles</label>
+                <select
+                    style="width: 180px"
+                    size="10"
+                    name="permisos"
+                    id="select-permisos"
+                ></select>
+            </div>
+            <div id="selector">
+                <ul id="selectores">
+                    <li>
+                        <a
+                            onclick="addPermiso()"
+                            title="Elegir"
+                            href="#"
+                            id="id_permissions_add_link"
+                            class="selector-add"
+                            >Elegir
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            onclick="removePermiso()"
+                            title="Quitar"
+                            href="#"
+                            id="id_permissions_add_link"
+                            class="selector-add"
+                            >Quitar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="permisos-elegidos">
+                <label for="permisos">Permisos elegidos</label>
+                <select
+                    style="width: 180px"
+                    size="10"
+                    name="permisos"
+                    id="select-permisos-elegidos"
+                ></select>
+            </div>
+            <button type="submit">Crear rol</button>
+        </form>
+
+        <script src="../../js/roles/addPermisos.js"></script>
+        <script type="module" src="../../js/roles/addRoles.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </body>
+</html>
