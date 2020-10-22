@@ -29,6 +29,9 @@ getPermisos()
     .then((data) => {
         nPermisos = data.count;
         nPags = Math.round(nPermisos / 10);
+        if (nPags === 0) {
+            nPags = 1;
+        }
         for (let i = 1; i <= nPags; i++) {
             axios
                 .get(`http://127.0.0.1:8000/permisos/?page=${i}`, {

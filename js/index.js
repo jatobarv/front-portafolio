@@ -8,7 +8,7 @@ d.addEventListener('DOMContentLoaded', async () => {
     const perm = await getPerm();
 
     if (perm != -1){
-        location.replace('./principal.html')
+        location.replace('./templates/principal.html')
     }else{
         localStorage.removeItem('Token')
     }
@@ -27,7 +27,7 @@ async function login(username, password){
 
     if (response) {
         localStorage.setItem('Token', response.token )
-        location.replace('./principal.html')
+        location.replace('./templates/principal.html')
     }else{
         alert('Usuario y/o Contraseña Inválidos')
     }
