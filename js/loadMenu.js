@@ -8,7 +8,7 @@ const d = document;
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
     {label: 'Inicio', id: 'navInicio', url: 'http://127.0.0.1:5500/templates/principal.html', perms:[0]}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
     {label: 'Usuarios', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/users/list.html', perms:[1]},
-    {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[1]},
+    {label: 'Unidades Internas', id:'navUnidades', url: 'http://127.0.0.1:5500/templates/internal_drives/list.html', perms:[1]},
     {label: 'Cuenta', id:'navCuenta', url: '#', perms:[1]},
     {label: 'Cerrer Sesion', id: 'navLogout',url: '#', perms:[0]}
 ]
@@ -19,8 +19,6 @@ d.addEventListener('DOMContentLoaded', (event) => {
         const $nav = d.querySelector('#nav') || d.querySelector('nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
         const $ul = d.createElement('ul');  //UL PARA AGREGAR LA LISTA
 
-        
-        
         const userPerm = await getPerm();
 
         let menuLoadedCount = 0;
