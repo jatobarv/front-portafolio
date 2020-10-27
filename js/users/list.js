@@ -94,7 +94,6 @@ d.addEventListener('DOMContentLoaded', async (event) => {
 
 d.addEventListener('click', event => {
     const target = event.target;
-
     if(target.name == 'editarUsuario' || target.name == 'cancelar'){
 
         if (target.dataset.userId){
@@ -108,6 +107,7 @@ d.addEventListener('click', event => {
                 }
             })
             if (userFound){
+                console.log(userFound)
                 $userId.value = userFound.id || ''
                 $username.value = userFound.username || ''
                 $rut.value = userFound.rut || ''

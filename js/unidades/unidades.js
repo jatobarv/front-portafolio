@@ -1,92 +1,142 @@
-import { apiRequest } from "../module.js";
-const token = localStorage.getItem("Token");
+import { apiRequest } from '../module.js'
 
 const d = document;
+let internalDrives;
+let empresas;
 
-var nEmpresas;
-var nPags;
-var empresas = [];
+//DOM Content
+const $internalDriveId = d.querySelector('#internalDriveId')
+const $nombre = d.querySelector('#nombre')
+const $descripcion = d.querySelector('#descripcion')
+const $empresa = d.querySelector('#empresa')
+const $btnSubmit = d.querySelector('#btnSubmit')
 
-function getEmpresas() {
-    const promise = axios.get(`http://127.0.0.1:8000/empresas/`, {
-        headers: {
-            Authorization: "Token " + token,
-            "Content-Type": "application/json",
-        },
-    });
-
-    const dataPromise = promise.then((response) => response.data);
-
-    return dataPromise;
+//Functions
+function limpiarTodo (){
+    $internalDriveId.value = ''
+    $nombre.value = ''
+    $descripcion.value = ''
+    $empresa.value = ''
+    $btnSubmit.textContent = "Aceptar"
 }
 
-// window.onbeforeunload = function() {
-//     return false;
-// };
+function loadInternalDrivesList(){
+    const $tbody = d.querySelector('tbody')
+    $tbody.innerHTML = ""
+    const $template = d.querySelector('#internalDrivesTemplate')
+    const $fragment = new DocumentFragment()
 
-getEmpresas()
-    .then((data) => {
-        nEmpresas = data.count;
-        nPags = Math.round(nEmpresas / 10);
-        if (nPags === 0) {
-            nPags = 1;
-        }
-        for (let i = 1; i <= nPags; i++) {
-            axios
-                .get(`http://127.0.0.1:8000/empresas/?page=${i}`, {
-                    headers: {
-                        Authorization: "Token " + token,
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => {
-                    empresas = res.data.results;
-                    console.log(empresas);
+    internalDrives.forEach(internalDrive => {
+        const $clone = $template.content.cloneNode(true)
+        const $tr = $clone.querySelector('tr')
+        const $td = $tr.querySelectorAll('td')
+        const $button = d.createElement('button')
 
-                    for (const empresa of empresas) {
-                        var sel = document.getElementById("select-empresas");
-                        var opt = document.createElement("option");
-                        opt.text = empresa.nombre;
-                        opt.value = empresa.id;
-                        sel.appendChild(opt);
-                    }
-                });
-        }
+        $button.textContent = "EDITAR"
+        $button.name = "editarUnidadInterna"
+        $button.setAttribute("data-internal-drive-id",internalDrive.id)
+
+        $td[0].textContent = internalDrive.nombre
+        $td[1].textContent = internalDrive.descripcion
+        $td[2].textContent = empresas.find(empresa => empresa.id == internalDrive.empresa).nombre
+        $td[3].insertAdjacentElement('beforeend',$button)
+
+        $fragment.append($tr)
+    }); 
+
+    $tbody.append($fragment)
+}
+
+d.addEventListener('DOMContentLoaded', async (event) => {
+    const $fragment = new DocumentFragment()
+    const token = localStorage.getItem('Token')
+    
+    let response = await apiRequest({
+        url: 'http://127.0.0.1:8000/unidades/',
+        method: "GET",
+        token,
+        action: "get internal drives"
+    });
+    
+    internalDrives = response.results
+    
+    
+    response = await apiRequest({
+        url: 'http://127.0.0.1:8000/empresas/',
+        method: "GET",
+        token,
+        action: "get empresas"
+    });
+    
+    empresas = response.results
+    
+    $fragment.innerHTML = '';
+    empresas.forEach(empresa => {
+        const $option = d.createElement('option')
+        $option.value = empresa.id
+        $option.textContent = empresa.nombre
+        $fragment.append($option)
     })
-    .catch((err) => console.log(err));
+    
+    $empresa.append($fragment)
 
-async function unidades(nombre, descripcion, empresa) {
-    const response = await apiRequest({
-        url: "http://127.0.0.1:8000/unidades/",
-        method: "POST",
-        token: token,
-        body: {
-            nombre,
-            descripcion,
-            empresa,
-        },
-        action: "post unidades",
-    });
-    localStorage.setItem("Token", token);
+    await loadInternalDrivesList()
+})
 
-    if (response) {
-        localStorage.setItem("Token", response.token);
-        // location.replace("./principal.html");
-    } else {
-        alert("Datos incorrectos");
-    }
-}
-
-d.addEventListener("submit", (event) => {
-    event.preventDefault();
+d.addEventListener('click', event => {
     const target = event.target;
 
-    var selEmpresa = document.getElementById("select-empresas");
-    if (target.id === "unidades") {
-        unidades(
-            target.nombre.value,
-            target.descripcion.value,
-            selEmpresa.value
-        );
+    if(target.name == 'editarUnidadInterna'){
+        if (target.dataset.internalDriveId){
+            const id = target.dataset.internalDriveId
+            let internalDriveFound;
+            $btnSubmit.textContent = "Editar"
+            
+            internalDrives.forEach(internalDrive =>{
+                if (internalDrive.id == id){
+                    internalDriveFound = internalDrive
+                }
+            })
+
+            if (internalDriveFound){
+                $internalDriveId.value = internalDriveFound.id
+                $nombre.value = internalDriveFound.nombre
+                $descripcion.value = internalDriveFound.descripcion
+                $empresa.value = internalDriveFound.empresa
+            }
+        }
     }
-});
+    
+    if(target.name == 'cancelar'){
+        limpiarTodo()
+    }
+
+})
+
+d.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    const target = event.target;
+
+    if (target.id == "internalDriveForm"){
+
+        const body = {
+            nombre: $nombre.value,
+            descripcion: $descripcion.value,
+            empresa: $empresa.value
+        }
+        const response = await apiRequest({
+            url: $internalDriveId.value ? 'http://127.0.0.1:8000/unidades/'+$internalDriveId.value+'/' : 'http://127.0.0.1:8000/unidades/',
+            method: $internalDriveId.value ? 'PUT' : 'POST',
+            token: localStorage.getItem('Token'),
+            body,
+            action: internalDriveId ? 'postInternalDrive' : 'putInternalDrive'
+        })
+
+        if (internalDrives.find((internalDrive) => internalDrive.id == response.id)){
+            internalDrives[internalDrives.findIndex(internalDrive => internalDrive.id == response.id)] = response
+        }else{
+            internalDrives.push(response)
+        }
+        loadInternalDrivesList()
+    }
+})

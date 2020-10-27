@@ -100,7 +100,7 @@ async function logout(){
     if (response || localStorage.getItem('Token')){
         localStorage.removeItem('Token')
 
-        location.replace('http://127.0.0.1:5500/templates/index.html')
+        location.replace('http://127.0.0.1:5500/index.html')
     }
 }
 
