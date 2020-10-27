@@ -17,8 +17,8 @@ async function tareas(nombre, descripcion) {
     localStorage.setItem("Token", token);
 
     if (response) {
-        localStorage.setItem("Token", response.token);
-        // location.replace("./principal.html");
+        // localStorage.setItem("Token", response.token);
+        location.replace("./tareas.html");
     } else {
         alert("Datos incorrectos");
     }

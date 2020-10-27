@@ -21,8 +21,8 @@ async function empresas(rut, nombre, telefono, email, direccion, region) {
     localStorage.setItem("Token", token);
 
     if (response) {
-        localStorage.setItem("Token", response.token);
-        // location.replace("./principal.html");
+        // localStorage.setItem("Token", response.token);
+        location.replace("./empresas.html");
     } else {
         alert("Datos incorrectos");
     }

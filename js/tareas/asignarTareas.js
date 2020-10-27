@@ -182,8 +182,8 @@ async function asignarTareas(
     localStorage.setItem("Token", token);
 
     if (response) {
-        localStorage.setItem("Token", response.token);
-        // location.replace("./principal.html");
+        // localStorage.setItem("Token", response.token);
+        location.replace("./asignarTareas.html");
     } else {
         alert("Datos incorrectos");
     }
