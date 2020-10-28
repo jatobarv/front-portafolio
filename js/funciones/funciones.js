@@ -309,7 +309,7 @@ async function editFuncion(
     }
 }
 
-d.addEventListener("click", (event) => {
+d.getElementById("modificar_tarea").addEventListener("click", (event) => {
     event.preventDefault();
     const target = event.target;
     if (target.id === "modificar_tarea") {
@@ -322,7 +322,13 @@ d.addEventListener("click", (event) => {
             $creador.value,
             $unidad.value
         );
-    } else if (target.id === "agregar_tarea") {
+    }
+});
+
+d.getElementById("agregar_tarea").addEventListener("click", (event) => {
+    event.preventDefault();
+    const target = event.target;
+    if (target.id === "agregar_tarea") {
         addFuncion(
             $nombre.value,
             $descripcion.value,
