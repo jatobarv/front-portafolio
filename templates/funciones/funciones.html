@@ -44,6 +44,7 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Termino</th>
                             <th>Porcentaje</th>
+                            <th>Tarea</th>
                             <th>Unidad</th>
                             <th>Creador</th>
                             <th></th>
@@ -57,7 +58,7 @@
         <div class="container">
             <form id="unidades" autocomplete="off">
                 <div class="form-group">
-                    <label for="nombre">Nombre Unidad</label>
+                    <label for="nombre">Nombre Función</label>
                     <input
                         class="form-control"
                         id="select-nombre"
@@ -110,6 +111,15 @@
                         placeholder="Porcentaje"
                         required
                     />
+                </div>
+                <div class="form-group">
+                    <label for="tarea">Tarea</label>
+                    <select
+                        class="form-control"
+                        id="select-tarea"
+                        name="Tarea"
+                        required
+                    ></select>
                 </div>
                 <div class="form-group">
                     <label for="creador">Creador</label>

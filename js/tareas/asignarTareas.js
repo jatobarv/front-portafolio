@@ -162,7 +162,7 @@ async function asignarTareas(
     fecha_termino,
     terminada,
     tarea,
-    asignado,
+    usuario,
     funcion
 ) {
     const response = await apiRequest({
@@ -174,7 +174,7 @@ async function asignarTareas(
             fecha_termino,
             terminada,
             tarea,
-            asignado,
+            usuario,
             funcion,
         },
         action: "post tareas_asignadas",

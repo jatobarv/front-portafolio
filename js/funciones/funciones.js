@@ -14,8 +14,60 @@ var $descripcion = document.getElementById("select-descripcion");
 var $fechaInicio = document.getElementById("select-fecha_inicio");
 var $fechaTermino = d.getElementById("select-fecha_termino");
 var $porcentaje = d.getElementById("select-porcentaje");
+var $tarea = d.getElementById("select-tarea");
 var $creador = d.getElementById("select-creador");
 var $unidad = d.getElementById("select-unidad");
+
+var nTareas;
+var nPags;
+var tareas = [];
+
+function getTareas() {
+    const promise = axios.get(`http://127.0.0.1:8000/tareas/`, {
+        headers: {
+            Authorization: "Token " + token,
+            "Content-Type": "application/json",
+        },
+    });
+
+    const dataPromise = promise.then((response) => response.data);
+
+    return dataPromise;
+}
+
+getTareas()
+    .then((data) => {
+        nTareas = data.count;
+        console.log(data);
+        nPags = Math.round(nTareas / 10);
+        if (nPags === 0) {
+            nPags = 1;
+        }
+        for (let i = 1; i <= nPags; i++) {
+            axios
+                .get(`http://127.0.0.1:8000/tareas/?page=${i}`, {
+                    headers: {
+                        Authorization: "Token " + token,
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((res) => {
+                    tareas = res.data.results;
+                    console.log(tareas);
+
+                    for (const tarea of tareas) {
+                        var selAsignado = document.getElementById(
+                            "select-tarea"
+                        );
+                        var opt = document.createElement("option");
+                        opt.text = tarea.nombre;
+                        opt.value = tarea.id;
+                        selAsignado.appendChild(opt);
+                    }
+                });
+        }
+    })
+    .catch((err) => console.log(err));
 
 function getCreadores() {
     const promise = axios.get(`http://127.0.0.1:8000/usuarios/`, {
@@ -122,7 +174,8 @@ async function addFuncion(
     fecha_inicio,
     fecha_termino,
     porcentaje_realizacion,
-    creador,
+    tarea,
+    usuario,
     unidad
 ) {
     const response = await apiRequest({
@@ -135,7 +188,8 @@ async function addFuncion(
             fecha_inicio,
             fecha_termino,
             porcentaje_realizacion,
-            creador,
+            tarea,
+            usuario,
             unidad,
         },
         action: "post funciones",
@@ -191,6 +245,7 @@ getFunciones().then((funciones) => {
                     var tdFechaInicio = document.createElement("td");
                     var tdFechaTermino = document.createElement("td");
                     var tdPorcentaje = document.createElement("td");
+                    var tdTarea = document.createElement("td");
                     var tdUnidad = document.createElement("td");
                     var tdCreador = document.createElement("td");
                     var tdBtn = document.createElement("td");
@@ -210,11 +265,14 @@ getFunciones().then((funciones) => {
                     tdPorcentaje.appendChild(
                         document.createTextNode(funcion.porcentaje_realizacion)
                     );
+                    tdTarea.appendChild(
+                        document.createTextNode(funcion.nombre_tarea)
+                    );
                     tdUnidad.appendChild(
-                        document.createTextNode(funcion.unidad)
+                        document.createTextNode(funcion.nombre_unidad)
                     );
                     tdCreador.appendChild(
-                        document.createTextNode(funcion.creador)
+                        document.createTextNode(funcion.nombre_usuario)
                     );
                     btn.className = "btn btn-secondary";
                     btn.type = "submit";
@@ -227,6 +285,7 @@ getFunciones().then((funciones) => {
                     tr.appendChild(tdFechaInicio);
                     tr.appendChild(tdFechaTermino);
                     tr.appendChild(tdPorcentaje);
+                    tr.appendChild(tdTarea);
                     tr.appendChild(tdUnidad);
                     tr.appendChild(tdCreador);
                     tr.appendChild(tdBtn);
@@ -250,6 +309,9 @@ getFunciones().then((funciones) => {
                         var selPorcentaje = document.getElementById(
                             "select-porcentaje"
                         );
+                        var selTarea = document.getElementById(
+                            "select-tarea"
+                        );
                         var selCreador = document.getElementById(
                             "select-creador"
                         );
@@ -264,8 +326,9 @@ getFunciones().then((funciones) => {
                             (selFechaTermino.value = funcion.fecha_termino),
                             (selPorcentaje.value =
                                 funcion.porcentaje_realizacion),
-                            (selCreador.value = funcion.creador),
+                            (selTarea.value = funcion.tarea),
                             (selUnidad.value = funcion.unidad);
+                            (selCreador.value = funcion.usuario),
                         selEdit = funcion.id;
                     });
                 }
@@ -282,7 +345,7 @@ async function editFuncion(
     fecha_inicio,
     fecha_termino,
     porcentaje_realizacion,
-    creador,
+    usuario,
     unidad
 ) {
     const response = await apiRequest({
@@ -295,7 +358,7 @@ async function editFuncion(
             fecha_inicio,
             fecha_termino,
             porcentaje_realizacion,
-            creador,
+            usuario,
             unidad,
         },
         action: "put funciones",
@@ -319,6 +382,7 @@ d.getElementById("modificar_tarea").addEventListener("click", (event) => {
             $fechaInicio.value,
             $fechaTermino.value,
             $porcentaje.value,
+            $tarea.value,
             $creador.value,
             $unidad.value
         );
@@ -335,6 +399,7 @@ d.getElementById("agregar_tarea").addEventListener("click", (event) => {
             $fechaInicio.value,
             $fechaTermino.value,
             $porcentaje.value,
+            $tarea.value,
             $creador.value,
             $unidad.value
         );
