@@ -77,7 +77,7 @@ async function addRol(name, permissions) {
 
     localStorage.setItem("Token", token);
 
-    location.replace("./addroles.html");
+    location.replace("./addRoles.html");
 }
 
 d.addEventListener("submit", (event) => {

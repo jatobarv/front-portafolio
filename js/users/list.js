@@ -47,7 +47,9 @@ function loadUserList(){
         const $button = d.createElement('button')
         
         $button.textContent = "EDITAR"
-        $button.name = "editarUsuario"
+				$button.name = "editarUsuario"
+				$button.className = "btn btn-secondary";
+
         $button.setAttribute("data-user-id",user.id)
 
         $td[0].textContent = user.username
@@ -151,9 +153,13 @@ d.addEventListener('submit', async (event) => {
             method: $userId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
-            action: 'postUser'
-        })
-
+						action: 'postUser'
+				})
+				
+				if (response) {
+					// localStorage.setItem("Token", response.token);
+					location.replace("./list.html");
+			}
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response
             loadUserList()
