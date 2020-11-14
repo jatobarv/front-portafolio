@@ -33,5 +33,22 @@ getTareasAsignadas().then((Tareas) => {
         tr.appendChild(tdName);
         tr.appendChild(tdDescripcion);
         sel.appendChild(tr);
+
+        
+    let fecInicio = new Date(tarea.fecha_inicio);
+    let fecTermino = new Date(tarea.fecha_termino);
+
+    let diffTiempo = fecTermino.getTime() - fecInicio.getTime();
+    let diffDias = diffTiempo / (1000 * 3600 * 24);
+
+    console.log(diffDias);
+
+    if (diffDias < 0) {
+      tr.style.backgroundColor = "red";
+    } else if (diffDias >= 7) {
+      tr.style.backgroundColor = "green";
+    } else if (diffDias < 7) {
+      tr.style.backgroundColor = "yellow";
+    }
     }
 });
