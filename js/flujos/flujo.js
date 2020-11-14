@@ -24,14 +24,28 @@ getTareasAsignadas().then((Tareas) => {
         var tdId = document.createElement("td");
         var tdName = document.createElement("td");
         var tdDescripcion = document.createElement("td");
-        var tdEstado = document.createElement("td");
+        var tdFechaInicio = document.createElement("td");
+        var tdFechaTermino = document.createElement("td");
+        var tdTarea = document.createElement("td");
+        var tdAsignado = document.createElement("td");
+        var tdFuncion = document.createElement("td");
         tdId.appendChild(document.createTextNode(tarea.id));
         tdName.appendChild(document.createTextNode(tarea.nombre_tarea));
         tdDescripcion.appendChild(document.createTextNode(tarea.descripcion_tarea));
+        tdFechaInicio.appendChild(document.createTextNode(tarea.fecha_inicio));
+        tdFechaTermino.appendChild(document.createTextNode(tarea.fecha_termino));
+        tdTarea.appendChild(document.createTextNode(tarea.nombre_tarea));
+        tdAsignado.appendChild(document.createTextNode(tarea.nombre_usuario));
+        tdFuncion.appendChild(document.createTextNode(tarea.nombre_funcion));
 
         tr.appendChild(tdId);
         tr.appendChild(tdName);
         tr.appendChild(tdDescripcion);
+        tr.appendChild(tdFechaInicio);
+        tr.appendChild(tdFechaTermino);
+        tr.appendChild(tdTarea);
+        tr.appendChild(tdAsignado);
+        tr.appendChild(tdFuncion);
         sel.appendChild(tr);
 
         

@@ -7,14 +7,17 @@ const d = document;
 
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
     {label: 'Inicio', id: 'navInicio', url: 'http://127.0.0.1:5500/templates/principal.html', perms:[0]}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
-    {label: 'Usuarios', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/users/list.html', perms:[0]},
     // {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[0]},
     // {label: 'Cuenta', id:'navCuenta', url: '#', perms:[0]},
-    {label: 'AddRoles', id:'navAddRoles', url: 'http://127.0.0.1:5500/templates/roles/addroles.html', perms:[1]},
-    {label: 'Funciones', id:'navFunciones', url: 'http://127.0.0.1:5500/templates/funciones/funciones.html', perms:[0]},
+    {label: 'Roles', id:'navAddRoles', url: 'http://127.0.0.1:5500/templates/roles/addRoles.html', perms:[0]},
+    {label: 'Usuarios', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/users/list.html', perms:[0]},
+    {label: 'Empresas', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/empresas/empresas.html', perms:[0]},
     {label: 'Unidades', id:'navUnidades', url: 'http://127.0.0.1:5500/templates/unidades/unidades.html', perms:[0]},
+    {label: 'Tareas', id: 'navTareas',url: 'http://127.0.0.1:5500/templates/tareas/tareas.html', perms:[0]},
+    {label: 'Funciones', id:'navFunciones', url: 'http://127.0.0.1:5500/templates/funciones/funciones.html', perms:[0]},
+    {label: 'Asignar Tareas', id: 'navAsignarTarea',url: 'http://127.0.0.1:5500/templates/tareas/asignarTareas.html', perms:[0]},
     {label: 'Flujos', id:'navFlujos', url: 'http://127.0.0.1:5500/templates/flujos/flujos.html', perms:[0]},
-    {label: 'Cerrer Sesion', id: 'navLogout',url: 'http://127.0.0.1:5500/index.html', perms:[0]}
+    {label: 'Cerrar Sesion', id: 'navLogout',url: 'http://127.0.0.1:5500/index.html', perms:[0]}
 ]
 
 

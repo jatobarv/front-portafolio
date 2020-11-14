@@ -33,7 +33,8 @@ function loadInternalDrivesList(){
         const $button = d.createElement('button')
 
         $button.textContent = "EDITAR"
-        $button.name = "editarUnidadInterna"
+				$button.name = "editarUnidadInterna"
+				$button.className = "btn btn-secondary"
         $button.setAttribute("data-internal-drive-id",internalDrive.id)
 
         $td[0].textContent = internalDrive.nombre

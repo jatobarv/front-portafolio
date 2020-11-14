@@ -162,7 +162,7 @@ async function asignarTareas(
     fecha_termino,
     terminada,
     tarea,
-    asignado,
+    usuario,
     funcion
 ) {
     const response = await apiRequest({
@@ -174,7 +174,7 @@ async function asignarTareas(
             fecha_termino,
             terminada,
             tarea,
-            asignado,
+            usuario,
             funcion,
         },
         action: "post tareas_asignadas",
@@ -182,8 +182,8 @@ async function asignarTareas(
     localStorage.setItem("Token", token);
 
     if (response) {
-        localStorage.setItem("Token", response.token);
-        // location.replace("./principal.html");
+        // localStorage.setItem("Token", response.token);
+        location.replace("./asignarTareas.html");
     } else {
         alert("Datos incorrectos");
     }
