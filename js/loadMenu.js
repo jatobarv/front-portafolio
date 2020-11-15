@@ -6,18 +6,18 @@ import {
 const d = document;
 
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
-    {label: 'Inicio', id: 'navInicio', url: '/templates/principal.html', perms:['Todos','Dueño']}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
+    {label: 'Inicio', id: 'navInicio', url: '/templates/principal.html', perms:['Todos']}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
     // {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[0]},
     // {label: 'Cuenta', id:'navCuenta', url: '#', perms:[0]},
-    {label: 'Roles', id:'navAddRoles', url: '/templates/roles/addRoles.html', perms:['Todos']},
-    {label: 'Usuarios', id:'navUsuario', url: '/templates/users/list.html', perms:['Todos']},
-    {label: 'Empresas', id:'navUsuario', url: '/templates/empresas/empresas.html', perms:['Todos']},
-    {label: 'Unidades', id:'navUnidades', url: '/templates/unidades/unidades.html', perms:['Todos']},
-    {label: 'Tareas', id: 'navTareas',url: '/templates/tareas/tareas.html', perms:['Todos','Dueño']},
-    {label: 'Funciones', id:'navFunciones', url: '/templates/funciones/funciones.html', perms:['Todos']},
+    {label: 'Roles', id:'navAddRoles', url: '/templates/roles/addRoles.html', perms:['Todos',]},
+    {label: 'Usuarios', id:'navUsuario', url: '/templates/users/list.html', perms:['Todos',]},
+    {label: 'Empresas', id:'navUsuario', url: '/templates/empresas/empresas.html', perms:['Todos',]},
+    {label: 'Unidades', id:'navUnidades', url: '/templates/unidades/unidades.html', perms:['Todos',]},
+    {label: 'Tareas', id: 'navTareas',url: '/templates/tareas/tareas.html', perms:['Todos',]},
+    {label: 'Funciones', id:'navFunciones', url: '/templates/funciones/funciones.html', perms:['Todos',]},
     {label: 'Asignar Tareas', id: 'navAsignarTarea',url: '/templates/tareas/asignarTareas.html', perms:['Todos',]},
-    {label: 'Flujos', id:'navFlujos', url: '/templates/flujos/flujos.html', perms:['Todos']},
-    {label: 'Cerrar Sesion', id: 'navLogout',url: '/index.html', perms:['Todos']}
+    {label: 'Flujos', id:'navFlujos', url: '/templates/flujos/flujos.html', perms:['Todos',]},
+    {label: 'Cerrar Sesion', id: 'navLogout',url: '/index.html', perms:['Todos',]}
 ]
 
 
