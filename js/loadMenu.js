@@ -6,18 +6,18 @@ import {
 const d = document;
 
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
-    {label: 'Inicio', id: 'navInicio', url: 'http://127.0.0.1:5500/templates/principal.html', perms:[0]}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
+    {label: 'Inicio', id: 'navInicio', url: '/templates/principal.html', perms:['All','Owner']}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
     // {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[0]},
     // {label: 'Cuenta', id:'navCuenta', url: '#', perms:[0]},
-    {label: 'Roles', id:'navAddRoles', url: 'http://127.0.0.1:5500/templates/roles/addRoles.html', perms:[0]},
-    {label: 'Usuarios', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/users/list.html', perms:[0]},
-    {label: 'Empresas', id:'navUsuario', url: 'http://127.0.0.1:5500/templates/empresas/empresas.html', perms:[0]},
-    {label: 'Unidades', id:'navUnidades', url: 'http://127.0.0.1:5500/templates/unidades/unidades.html', perms:[0]},
-    {label: 'Tareas', id: 'navTareas',url: 'http://127.0.0.1:5500/templates/tareas/tareas.html', perms:[0]},
-    {label: 'Funciones', id:'navFunciones', url: 'http://127.0.0.1:5500/templates/funciones/funciones.html', perms:[0]},
-    {label: 'Asignar Tareas', id: 'navAsignarTarea',url: 'http://127.0.0.1:5500/templates/tareas/asignarTareas.html', perms:[0]},
-    {label: 'Flujos', id:'navFlujos', url: 'http://127.0.0.1:5500/templates/flujos/flujos.html', perms:[0]},
-    {label: 'Cerrar Sesion', id: 'navLogout',url: 'http://127.0.0.1:5500/index.html', perms:[0]}
+    {label: 'Roles', id:'navAddRoles', url: '/templates/roles/addRoles.html', perms:['All','Owner']},
+    {label: 'Usuarios', id:'navUsuario', url: '/templates/users/list.html', perms:['All','Owner']},
+    {label: 'Empresas', id:'navUsuario', url: '/templates/empresas/empresas.html', perms:['All','Owner']},
+    {label: 'Unidades', id:'navUnidades', url: '/templates/unidades/unidades.html', perms:['All','Owner']},
+    {label: 'Tareas', id: 'navTareas',url: '/templates/tareas/tareas.html', perms:['All','Owner']},
+    {label: 'Funciones', id:'navFunciones', url: '/templates/funciones/funciones.html', perms:['All','Owner']},
+    {label: 'Asignar Tareas', id: 'navAsignarTarea',url: '/templates/tareas/asignarTareas.html', perms:[0,'Owner']},
+    {label: 'Flujos', id:'navFlujos', url: '/templates/flujos/flujos.html', perms:['All','Owner']},
+    {label: 'Cerrar Sesion', id: 'navLogout',url: '/index.html', perms:['All']}
 ]
 
 
@@ -31,14 +31,18 @@ d.addEventListener('DOMContentLoaded', (event) => {
         
         const userPerm = await getPerm();
 
+        console.log(userPerm)
         let menuLoadedCount = 0;
         menus.forEach(menu => {
-            if(menu.perms.includes(userPerm) || menu.perms.includes(0) && userPerm != -1){
+
+            if (window.location.href.includes(menu.url) && !menu.perms.includes('All') && !menu.perms.includes(userPerm)) location.replace(window.location.origin + '/templates/error.html')
+            
+            if(menu.perms.includes(userPerm) || menu.perms.includes('All') && userPerm != -1){
                 menu.perms.includes(userPerm)
                 const $li = document.createElement('li')
                 const $a = document.createElement('a')
 
-                $a.href = menu.url
+                $a.href = window.location.origin+menu.url
                 $a.innerText = menu.label
                 $a.classList.add('nav-link')
                 
@@ -53,7 +57,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         });
 
 
-        if (!menuLoadedCount) location.replace('./error.html')
+        if (!menuLoadedCount) location.replace(window.location.origin+'/templates/error.html')
 
         $ul.classList.add('nav','justify-content-center')
         $fragment.append($ul)
