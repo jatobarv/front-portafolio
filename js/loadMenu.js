@@ -41,6 +41,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
                 $a.href = menu.url
                 $a.innerText = menu.label
                 $a.classList.add('nav-link')
+                $a.style = "color: #fff"
                 
                 if(menu.id === 'navLogout') $a.onclick = navLogout
 
