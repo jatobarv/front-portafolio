@@ -2,8 +2,8 @@ const token = localStorage.getItem("Token");
 
 const d = document;
 
-function getUsuarios() {
-  const promise = axios.get(`http://127.0.0.1:8000/usuarios/`, {
+function getEmpresas() {
+  const promise = axios.get(`http://127.0.0.1:8000/empresas/`, {
     headers: {
       Authorization: "Token " + token,
       "Content-Type": "application/json",
@@ -19,9 +19,9 @@ function getUsuarios() {
 //     return false;
 // };
 
-getUsuarios().then((data) => {
-  for (const usuario of data.results) {
-    console.log(usuario);
+getEmpresas().then((data) => {
+  for (const empresa of data.results) {
+    console.log(empresa);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -32,11 +32,11 @@ getUsuarios().then((data) => {
     div.className = "custom-control custom-checkbox";
     ckbox.setAttribute("type", "checkbox");
     ckbox.className = "custom-control-input";
-    ckbox.id = usuario.id;
+    ckbox.id = empresa.id;
     label.className = "custom-control-label";
-    label.setAttribute("for", usuario.id);
-    label.appendChild(document.createTextNode(usuario.id));
-    tdName.appendChild(document.createTextNode(usuario.username));
+    label.setAttribute("for", empresa.id);
+    label.appendChild(document.createTextNode(empresa.id));
+    tdName.appendChild(document.createTextNode(empresa.nombre));
 
     div.appendChild(ckbox);
     div.appendChild(label);
@@ -47,8 +47,8 @@ getUsuarios().then((data) => {
   }
 });
 
-async function deleteUser(id) {
-  const promise = axios.delete(`http://127.0.0.1:8000/usuarios/${id}/`, {
+async function deleteEmpresa(id) {
+  const promise = axios.delete(`http://127.0.0.1:8000/empresas/${id}/`, {
     headers: {
       Authorization: "Token " + token,
       "Content-Type": "application/json",
@@ -59,7 +59,7 @@ async function deleteUser(id) {
 
   localStorage.setItem("Token", token);
 
-  location.replace("./deleteUser.html");
+  location.replace("./deleteEmpresa.html");
   return dataPromise;
 }
 
@@ -73,8 +73,8 @@ d.addEventListener("submit", (event) => {
     if (inputElements[i].checked) {
       checkedValue = inputElements[i].id;
       console.log(inputElements[i].id);
-      if (target.id === "users-form-delete") {
-        deleteUser(checkedValue);
+      if (target.id === "empresa-form-delete") {
+        deleteEmpresa(checkedValue);
       }
     }
   }
