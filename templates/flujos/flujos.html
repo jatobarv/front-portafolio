@@ -1,62 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Flujo</title>
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"
-        ></script>
-    </head>
-    <body>
-        <div id="nav" class="navbar navbar navbar-dark bg-primary" style="justify-content: center;" ></div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table
-                    class="table table-bordered text-center"
-                    id="dataTable"
-                    width="100%"
-                    cellspacing="0"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flujo</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div
+      id="nav"
+      class="navbar navbar navbar-dark bg-primary"
+      style="justify-content: center"
+    ></div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered text-center"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead class="thead-light">
+            <tr>
+              <th>ID Tarea</th>
+              <th>Nombre Tarea</th>
+              <th>Descripción Tarea</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Término</th>
+              <th>Asignado</th>
+              <th>Funcion</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Reportar problema</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="reporte" autocomplete="off">
+              <div class="form-group">
+                <input type="text" name="tarea" id="tarea" />
+                <label>Nombre Reporte</label>
+                <input
+                  class="form-control"
+                  id="nombre"
+                  type="text"
+                  placeholder="Nombre reporte"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Detalle Reporte</label>
+                <input
+                  class="form-control"
+                  id="detalle"
+                  type="text"
+                  placeholder="Detalle"
+                  required
+                />
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  id="btnSubmit"
+                  name="crearReporte"
+                  type="submit"
+                  class="btn btn-primary"
                 >
-                    <thead class="thead-light">
-                        <tr>
-                            <th>ID Tarea</th>
-                            <th>Nombre Tarea</th>
-                            <th>Descripción Tarea</th>
-                            <th>Fecha Inicio</th>
-                            <th>Fecha Término</th>
-                            <th>Tarea</th>
-                            <th>Asignado</th>
-                            <th>Funcion</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                    </tbody>
-                </table>
-            </div>
+                  Crear reporte
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        
-        <script type="module" src="../../js/loadMenu.js"></script>
-        <script type="module" src="../../js/flujos/flujo.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
-    </body>
+      </div>
+    </div>
+
+    <script type="module" src="../../js/loadMenu.js"></script>
+    <script type="module" src="../../js/flujos/flujo.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
+  </body>
 </html>

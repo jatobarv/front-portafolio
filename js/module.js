@@ -77,6 +77,7 @@ async function getPerm(permNumber){
     if (!response.length) return -1
     
     const user_id = response[0].user_id
+    localStorage.setItem('user_id', user_id)
 
     response = await apiRequest({
         url: 'http://127.0.0.1:8000/usuarios/'+user_id,
