@@ -141,3 +141,8 @@ d.addEventListener('submit', async (event) => {
         loadInternalDrivesList()
     }
 })
+const user = localStorage.getItem('username');
+const div = d.getElementById('alerta');
+if (user === 'admin'){
+    div.style.display = 'block';
+}

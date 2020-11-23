@@ -2,8 +2,8 @@ const token = localStorage.getItem("Token");
 
 const d = document;
 
-function getFunciones() {
-  const promise = axios.get(`http://127.0.0.1:8000/funciones/`, {
+function getUnidades() {
+  const promise = axios.get(`http://127.0.0.1:8000/unidades/`, {
     headers: {
       Authorization: "Token " + token,
       "Content-Type": "application/json",
@@ -19,9 +19,9 @@ function getFunciones() {
 //     return false;
 // };
 
-getFunciones().then((data) => {
-  for (const funcion of data.results) {
-    console.log(funcion);
+getUnidades().then((data) => {
+  for (const unidad of data.results) {
+    console.log(unidad);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -32,11 +32,11 @@ getFunciones().then((data) => {
     div.className = "custom-control custom-checkbox";
     ckbox.setAttribute("type", "checkbox");
     ckbox.className = "custom-control-input";
-    ckbox.id = funcion.id;
+    ckbox.id = unidad.id;
     label.className = "custom-control-label";
-    label.setAttribute("for", funcion.id);
-    label.appendChild(document.createTextNode(funcion.id));
-    tdName.appendChild(document.createTextNode(funcion.nombre));
+    label.setAttribute("for", unidad.id);
+    label.appendChild(document.createTextNode(unidad.id));
+    tdName.appendChild(document.createTextNode(unidad.nombre));
 
     div.appendChild(ckbox);
     div.appendChild(label);
@@ -47,8 +47,8 @@ getFunciones().then((data) => {
   }
 });
 
-async function deleteFunciones(id) {
-  const promise = axios.delete(`http://127.0.0.1:8000/funciones/${id}/`, {
+async function deleteUnidades(id) {
+  const promise = axios.delete(`http://127.0.0.1:8000/unidades/${id}/`, {
     headers: {
       Authorization: "Token " + token,
       "Content-Type": "application/json",
@@ -59,7 +59,7 @@ async function deleteFunciones(id) {
 
   localStorage.setItem("Token", token);
 
-//   location.replace("./deleteFunciones.html");
+  location.replace("./deleteUnidades.html");
   return dataPromise;
 }
 
@@ -73,8 +73,8 @@ d.addEventListener("submit", (event) => {
     if (inputElements[i].checked) {
       checkedValue = inputElements[i].id;
       console.log(inputElements[i].id);
-      if (target.id === "funcion-form-delete") {
-        deleteFunciones(checkedValue);
+      if (target.id === "unidad-form-delete") {
+        deleteUnidades(checkedValue);
       }
     }
   }
