@@ -2,6 +2,7 @@ import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
 const user = localStorage.getItem("username");
 
+let arrTareas = [];
 function getTareasAsignadas() {
   const promise = axios.get(`http://127.0.0.1:8000/tareas_asignadas/`, {
     headers: {
@@ -21,6 +22,7 @@ function getTareasAsignadas() {
 
 getTareasAsignadas().then((Tareas) => {
   for (const tarea of Tareas.results) {
+    arrTareas.push(tarea.id);
     console.log(tarea);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
@@ -33,6 +35,8 @@ getTareasAsignadas().then((Tareas) => {
     var tdFuncion = document.createElement("td");
     var tdReporte = document.createElement("td");
     var link = document.createElement("a");
+    var realizar = document.createElement("a");
+    var indicacion = document.getElementById("indicacion");
 
     if (user === tarea.nombre_usuario) {
       tdId.appendChild(document.createTextNode(tarea.id));
@@ -47,14 +51,22 @@ getTareasAsignadas().then((Tareas) => {
       tdReporte.appendChild(link);
       link.textContent = "Reportar";
       link.id = tarea.id;
-      // link.setAttribute('href', 'reporte.html');
       link.setAttribute("data-toggle", "modal");
       link.setAttribute("data-target", "#myModal");
       link.className = "btn btn-warning";
       link.onclick = function () {
         document.getElementById("tarea").value = tarea.id;
       };
-
+      if (!tarea.terminada) {
+        tdReporte.appendChild(realizar);
+        realizar.textContent = "Realizar";
+        realizar.className = "btn btn-primary m-1";
+        realizar.setAttribute(
+          "href",
+          `/templates/tareas/realizarTareas.html?id=${tarea.id}`
+        );
+        realizar.onclick = function () {};
+      }
       tr.appendChild(tdId);
       tr.appendChild(tdName);
       tr.appendChild(tdDescripcion);
@@ -74,10 +86,18 @@ getTareasAsignadas().then((Tareas) => {
       tdFechaTermino.appendChild(document.createTextNode(tarea.fecha_termino));
       tdAsignado.appendChild(document.createTextNode(tarea.nombre_usuario));
       tdFuncion.appendChild(document.createTextNode(tarea.nombre_funcion));
-      tdReporte.appendChild(link);
+      if (!tarea.terminada) {
+        tdReporte.appendChild(link);
+        tdReporte.appendChild(realizar);
+        realizar.textContent = "Realizar";
+        realizar.className = "btn btn-primary m-1";
+        realizar.setAttribute(
+          "href",
+          `/templates/tareas/realizarTareas.html?id=${tarea.id}`
+        );
+      }
       link.textContent = "Reportar";
       link.id = tarea.id;
-      // link.setAttribute('href', 'reporte.html');
       link.setAttribute("data-toggle", "modal");
       link.setAttribute("data-target", "#myModal");
       link.className = "btn btn-warning";

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Borrar Funcion</title>
+    <title>Flujo</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -26,38 +26,30 @@
       crossorigin="anonymous"
     ></script>
   </head>
-
   <body>
     <div
       id="nav"
       class="navbar navbar navbar-dark bg-primary"
       style="justify-content: center"
     ></div>
-    <div class="container mt-2">
-      <form id="funcion-form-delete">
-        <div class="row">
-          <div class="col-12">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">ID funcion</th>
-                  <th scope="col">Nombre funcion</th>
-                </tr>
-              </thead>
-              <tbody id="table-body"></tbody>
-            </table>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-danger">Eliminar funcion</button>
-      </form>
-      <div class="alert alert-primary mt-3" role="alert">
-        Si quieres agregar una funcion ingresa
-        <a href="./funciones.html" class="alert-link">aquí</a>
-      </div>
-    </div>
 
+    <div class="container mt-3">
+      <form>
+        <div class="form-group">
+          <label for="nombreUsuario">Nombre Usuario:</label>
+          <input type="text" class="form-control" id="nombreUsuario" disabled />
+        </div>
+        <div class="form-group">
+          <label for="nombreTarea">Nombre Tarea:</label>
+          <input type="text" class="form-control" id="nombreTarea" disabled />
+        </div>
+        <div class="indicaciones" id="indicaciones"></div>
+        <button class="btn btn-primary" type="submit">Realizar Tarea</button>
+      </form>
+    </div>
     <script type="module" src="../../js/loadMenu.js"></script>
-    <script type="module" src="../../js/funciones/deleteFunciones.js"></script>
+    <script type="module" src="../../js/tareas/realizarTareas.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
   </body>
 </html>

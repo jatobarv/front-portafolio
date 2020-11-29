@@ -163,7 +163,8 @@ async function asignarTareas(
     terminada,
     tarea,
     usuario,
-    funcion
+    funcion,
+    indicacion
 ) {
     const response = await apiRequest({
         url: "http://127.0.0.1:8000/tareas_asignadas/",
@@ -176,6 +177,7 @@ async function asignarTareas(
             tarea,
             usuario,
             funcion,
+            indicacion
         },
         action: "post tareas_asignadas",
     });
