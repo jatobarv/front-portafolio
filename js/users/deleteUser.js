@@ -59,7 +59,7 @@ async function deleteUser(id) {
 
   localStorage.setItem("Token", token);
 
-  location.replace("./deleteUser.html");
+  // location.replace("./deleteUser.html");
   return dataPromise;
 }
 

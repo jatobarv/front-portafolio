@@ -201,7 +201,7 @@ d.addEventListener("submit", (event) => {
         asignarTareas(
             target.fecha_inicio.value,
             target.fecha_termino.value,
-            target.terminada.value,
+            target.terminada.checked,
             selTarea.value,
             selAsignado.value,
             selFuncion.value

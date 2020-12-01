@@ -57,7 +57,7 @@ getTareasAsignadas().then((Tareas) => {
       link.onclick = function () {
         document.getElementById("tarea").value = tarea.id;
       };
-      if (!tarea.terminada) {
+      if (tarea.terminada === false) {
         tdReporte.appendChild(realizar);
         realizar.textContent = "Realizar";
         realizar.className = "btn btn-primary m-1";

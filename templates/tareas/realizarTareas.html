@@ -34,7 +34,7 @@
     ></div>
 
     <div class="container mt-3">
-      <form>
+      <form id="indicaciones-form">
         <div class="form-group">
           <label for="nombreUsuario">Nombre Usuario:</label>
           <input type="text" class="form-control" id="nombreUsuario" disabled />
@@ -45,11 +45,11 @@
         </div>
         <div class="indicaciones" id="indicaciones"></div>
         <button class="btn btn-primary" type="submit">Realizar Tarea</button>
+        <a class="btn btn-secondary" href="/templates/flujos/flujos.html">Volver</a>
       </form>
     </div>
     <script type="module" src="../../js/loadMenu.js"></script>
     <script type="module" src="../../js/tareas/realizarTareas.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
   </body>
 </html>
