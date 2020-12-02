@@ -35,7 +35,7 @@ async function apiRequest(params){
 
     try {
         
-        const response = await fetch(url, options)
+        const response = await fetch('http://localhost:8000' + url, options)
 
         const json = response.json();
 
@@ -69,7 +69,7 @@ async function getPerm(){
     const token = localStorage.getItem('Token')
     
     const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/login',
+        url: '/login',
         method: 'GET',
         action: 'get perm',
         token
@@ -81,7 +81,7 @@ async function getPerm(){
 async function logout(){
     const token = localStorage.getItem('Token');
     const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/logout/'+token,
+        url: '/logout/'+token,
         method: 'GET',
         action: 'get logout',
         token
@@ -90,7 +90,7 @@ async function logout(){
     if (response || localStorage.getItem('Token')){
         localStorage.removeItem('Token')
 
-        location.replace('http://127.0.0.1:5500/index.html')
+        location.replace(window.location.origin + '/index.html')
     }
 }
 

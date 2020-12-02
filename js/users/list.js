@@ -40,7 +40,7 @@ function loadUserList(){
     $tbody.innerHTML = ""
     const $template = d.querySelector('#userTemplate')
     const $fragment = new DocumentFragment()
-    users.forEach(user => {
+    Object.values(users).forEach(user => {
         const $clone = $template.content.cloneNode(true)
         const $tr = $clone.querySelector('tr')
         const $td = $tr.querySelectorAll('td')
@@ -50,10 +50,10 @@ function loadUserList(){
 				$button.name = "editarUsuario"
 				$button.className = "btn btn-secondary";
 
-        $button.setAttribute("data-user-id",user.id)
+        $button.setAttribute("data-user-id",user["ID"])
 
-        $td[0].textContent = user.username
-        $td[1].textContent = user.email
+        $td[0].textContent = user["USERNAME"]
+        $td[1].textContent = user["EMAIL"]
         $td[2].insertAdjacentElement('beforeend',$button)
 
         $fragment.append($tr)
@@ -66,28 +66,28 @@ d.addEventListener('DOMContentLoaded', async (event) => {
     const token = localStorage.getItem('Token')
     
     const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/usuarios/',
+        url: '/usuarios',
         method: "GET",
         token,
         action: "get users"
     });
     
-    users = response.results
+    users = response
     
     await loadUserList()
 
     const roles = await apiRequest({
-        url: 'http://127.0.0.1:8000/roles/',
+        url: '/roles',
         method: "GET",
         token,
         action: "get roles"
     });
 
     $fragment.innerHTML = '';
-    roles.results.forEach(rol => {
+    Object.values(roles).forEach(rol => {
         const $option = d.createElement('option')
-        $option.value = rol.id
-        $option.textContent = rol.name
+        $option.value = rol["ID"]
+        $option.textContent = rol["NOMBRE"]
         $fragment.append($option)
     })
 
@@ -103,24 +103,24 @@ d.addEventListener('click', event => {
             let userFound;
             $btnSubmit.textContent = "Editar"
 
-            users.forEach(user =>{
-                if (user.id == id){
+            Object.values(users).forEach(user =>{
+                if (user["ID"] == id){
                     userFound = user
                 }
             })
             if (userFound){
                 console.log(userFound)
-                $userId.value = userFound.id || ''
-                $username.value = userFound.username || ''
-                $rut.value = userFound.rut || ''
-                $nombre.value = userFound.nombre || ''
-                $apellido.value = userFound.apellido || ''
-                $email.value = userFound.email || ''
-                $telefono.value = userFound.telefono || ''
-                $direccion.value = userFound.direccion || ''
-                $region.value = userFound.region || ''
-                $rol.value = userFound.rol_usuario || ''
-                $is_active.checked = userFound.is_active
+                $userId.value = userFound["ID"] || ''
+                $username.value = userFound["USERNAME"] || ''
+                $rut.value = userFound["RUT"] || ''
+                $nombre.value = userFound["NOMBRE"] || ''
+                $apellido.value = userFound["APELLIDO"] || ''
+                $email.value = userFound["EMAIL"] || ''
+                $telefono.value = userFound["TELEFONO"] || ''
+                $direccion.value = userFound["DIRECCION"] || ''
+                $region.value = userFound["REGION"] || ''
+                $rol.value = userFound["ID_ROL_USUARIO"] || ''
+                $is_active.checked = userFound["ACTIVO"]
             }
         }
 
@@ -136,30 +136,34 @@ d.addEventListener('submit', async (event) => {
     console.log(target)
     if (target.id == "userForm"){
         const body = {
-            username: $username.value,
             rut: $rut.value,
+            username: $username.value,
+            password: $password.value,
             nombre: $nombre.value,
             apellido: $apellido.value,
             email: $email.value,
             telefono: $telefono.value,
-            password: $password.value,
             direccion: $direccion.value,
             region: $region.value,
-            rol_usuario: $rol.value,
-            is_active: $is_active.checked
+            activo: $is_active.checked ? 1 : 0,
+            id_rol_usuario: $rol.value
         }
+
+        console.log(body)
         const response = await apiRequest({
-            url: $userId.value ? 'http://127.0.0.1:8000/usuarios/'+$userId.value+'/' : 'http://127.0.0.1:8000/usuarios/',
+            url: $userId.value ? '/usuarios/'+$userId.value+'/' : '/usuarios',
             method: $userId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
-						action: 'postUser'
-				})
-				
-				if (response) {
-					// localStorage.setItem("Token", response.token);
-					location.replace("./list.html");
-			}
+            action: 'postUser'
+        })
+        
+        console.log(response)
+        if (response) {
+            // localStorage.setItem("Token", response.token);
+            location.replace("./list.html");
+        }
+
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response
             loadUserList()

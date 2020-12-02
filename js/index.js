@@ -16,7 +16,7 @@ d.addEventListener('DOMContentLoaded', async () => {
 
 async function login(username, password){
     const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/login/',
+        url: '/login',
         method: 'POST',
         body: {
             username,
