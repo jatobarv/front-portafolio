@@ -66,7 +66,7 @@ d.addEventListener('DOMContentLoaded', async (event) => {
     const token = localStorage.getItem('Token')
     
     const response = await apiRequest({
-        url: 'http://127.0.0.1:8000/empresas/',
+        url: '/empresas',
         method: "GET",
         token,
         action: "get empresas"
@@ -124,16 +124,16 @@ d.addEventListener('submit', async (event) => {
             region: $region.value,
         }
         const response = await apiRequest({
-            url: $empId.value ? 'http://127.0.0.1:8000/empresas/'+$empId.value+'/' : 'http://127.0.0.1:8000/empresas/',
+            url: $empId.value ? '/empresas/'+$empId.value+'/' : '/empresas',
             method: $empId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
-						action: 'postEmp'
-				})
+                action: 'postEmp'
+            })
 				
-				if (response) {
-					// localStorage.setItem("Token", response.token);
-					location.replace("./empresas.html");
+            if (response) {
+                // localStorage.setItem("Token", response.token);
+                location.replace("./empresas.html");
 			}
         if (emps.find((emp) => emp.id == response.id)){
             emps[emps.findIndex(emp => emp.id == response.id)] = response

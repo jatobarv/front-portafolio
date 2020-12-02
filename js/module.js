@@ -67,7 +67,7 @@ function errorController(action){
 
 async function getPerm(){
     const token = localStorage.getItem('Token')
-    
+    const perms = [];
     const response = await apiRequest({
         url: '/login',
         method: 'GET',
@@ -75,7 +75,12 @@ async function getPerm(){
         token
     })
 
-    return Object.values(response)[0]["ROL"]
+    Object.values(response).forEach(element => {
+        perms.push(element["NOMBRE"])
+    });
+
+    console.log(perms)
+    return perms
 }
 
 async function logout(){
