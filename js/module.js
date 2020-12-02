@@ -27,7 +27,7 @@ async function apiRequest(params){
     const options = {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token ? 'Token '+token : null
+            'Authorization': token ? token : null
         },
         method,
         body: body ? JSON.stringify(body) : null
@@ -65,41 +65,17 @@ function errorController(action){
     }
 }
 
-async function getPerm(permNumber){
+async function getPerm(){
     const token = localStorage.getItem('Token')
     
-    let response = await apiRequest({
-        url: 'http://127.0.0.1:8000/'+token,
-        method: 'GET',
-        action: 'get token'
-    })
-    
-    if (!response.length) return -1
-    
-    const user_id = response[0].user_id
-    localStorage.setItem('user_id', user_id)
-
-    response = await apiRequest({
-        url: 'http://127.0.0.1:8000/usuarios/'+user_id,
+    const response = await apiRequest({
+        url: 'http://127.0.0.1:8000/login',
         method: 'GET',
         action: 'get perm',
         token
     })
 
-    if (!response.is_superuser){
-        response = await apiRequest({
-            url: 'http://127.0.0.1:8000/roles/'+response.rol_usuario,
-            method: 'GET',
-            action: 'get perm',
-            token
-        })
-    }else{
-        response = {
-            name: 'Dueño'
-        }
-    }
-
-    return response.name
+    return Object.values(response)[0]["ROL"]
 }
 
 async function logout(){

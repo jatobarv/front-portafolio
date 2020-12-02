@@ -31,7 +31,6 @@ d.addEventListener('DOMContentLoaded', (event) => {
         
         const userPerm = await getPerm();
 
-        console.log(userPerm)
         let menuLoadedCount = 0;
         menus.forEach(menu => {
 
