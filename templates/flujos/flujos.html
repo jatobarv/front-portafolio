@@ -111,6 +111,50 @@
       </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="addIndicacion">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Indicación</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="agregar-indicacion" autocomplete="off">
+              <div class="form-group">
+                <input type="text" name="id_tarea" id="id_tarea"  />
+                <input type="text" name="tarea" id="tareas"  />
+                <label>Indicación</label>
+                <input
+                  class="form-control"
+                  id="indicaciones"
+                  type="text"
+                  placeholder="Agregar una indicación"
+                  required
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="btnSubmit"
+                  name="crearIndicacion"
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Agregar indicación
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="../../js/loadMenu.js"></script>
     <script type="module" src="../../js/flujos/flujo.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

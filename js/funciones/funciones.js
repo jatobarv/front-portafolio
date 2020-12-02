@@ -19,7 +19,6 @@ var $creador = d.getElementById("select-creador");
 var $unidad = d.getElementById("select-unidad");
 
 var nTareas;
-var nPags;
 var tareas = [];
 
 function getTareas() {
