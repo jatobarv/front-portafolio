@@ -34,7 +34,11 @@
     ></script>
   </head>
   <body>
-    <nav id="nav" class="navbar navbar navbar-dark bg-primary" style="justify-content: center;" ></nav>
+    <nav
+      id="nav"
+      class="navbar shadow p-3 mb-5 bg-white rounded"
+      style="justify-content: center"
+    ></nav>
 
     <div class="container">
       <div class="card-body">
@@ -46,9 +50,9 @@
           >
             <thead class="thead-light">
               <tr>
-                <th>Usuario</th>
-                <th>Correo</th>
-                <th>Acciones</th>
+                <th style="background-color: #add8e6; color: #000">Usuario</th>
+                <th style="background-color: #add8e6; color: #000">Correo</th>
+                <th style="background-color: #add8e6; color: #000">Acciones</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -62,7 +66,12 @@
           <td></td>
         </tr>
       </template>
-      <div class="alert alert-danger mt-3" role="alert" id="alerta" style="display: none;">
+      <div
+        class="alert alert-danger mt-3""
+        role="alert"
+        id="alerta"
+        style="display: none"
+      >
         Si quieres eliminar un usuario ingresa
         <a href="./deleteUser.html" class="alert-link">aquí</a>
       </div>
@@ -178,11 +187,17 @@
           id="btnSubmit"
           name="crearUsuario"
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-light"
+          style="background-color: #add8e6"
         >
           Registrar
         </button>
-        <button type="button" name="cancelar" class="btn btn-primary">
+        <button
+          type="button"
+          name="cancelar"
+          class="btn btn-light"
+          style="background-color: #add8e6"
+        >
           Cancelar
         </button>
         <input id="userId" type="hidden" />

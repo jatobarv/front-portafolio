@@ -72,14 +72,17 @@ getTareasAsignadas().then((data) => {
           link.id = tarea.id;
           link.setAttribute("data-toggle", "modal");
           link.setAttribute("data-target", "#myModal");
-          link.className = "btn btn-warning";
+          link.className = "btn btn-light m-1";
+          link.style = "width: 88px;"
           link.onclick = function () {
             document.getElementById("tarea").value = tarea.id;
           };
           if (tarea.terminada === false) {
             tdReporte.appendChild(realizar);
             realizar.textContent = "Realizar";
-            realizar.className = "btn btn-primary m-1";
+            realizar.className = "btn btn-light m-1";
+            realizar.style = "width: 88px;"
+
             realizar.setAttribute(
               "href",
               `/templates/tareas/realizarTareas.html?id=${tarea.id}`
@@ -105,11 +108,11 @@ getTareasAsignadas().then((data) => {
           console.log(diffDias);
 
           if (diffDias < 0) {
-            tr.style.backgroundColor = "red";
+            tr.style.backgroundColor = "#E6ADB2";
           } else if (diffDias >= 7) {
-            tr.style.backgroundColor = "green";
+            tr.style.backgroundColor = "#ACE6AF";
           } else if (diffDias < 7) {
-            tr.style.backgroundColor = "yellow";
+            tr.style.backgroundColor = "#D8E6AD";
           }
         }
       });

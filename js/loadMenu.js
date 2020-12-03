@@ -26,7 +26,14 @@ d.addEventListener('DOMContentLoaded', (event) => {
         const $fragment = new DocumentFragment() //FRAGMENTO DE HTML PARA AGREGARLE PARAMETROS ANTES DE INSERTARLO TODO EN EL HTML
         const $nav = d.querySelector('#nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
         const $ul = d.createElement('ul');  //UL PARA AGREGAR LA LISTA
-
+        const $a = document.createElement('a');
+        const $img = document.createElement('img');
+        $img.src = "/templates/1jojVVCOMkX9Wyrexe4hGfJzKnTVQMg33Tpig3aD1fqVY4nScqgfVt8PQ8LwtFvwhKxkECc8A9jix8V4IQhQw0oWDTcNYcHj1zzw.png"
+        $img.width = 116;
+        $img.height = 64;
+        // $img.className = 'd-inline-block align-top'
+        $a.appendChild($img)
+        $nav.style = 'flex-wrap: nowrap; justify-content: flex-start;'
         
         
         const userPerm = await getPerm();
@@ -45,8 +52,8 @@ d.addEventListener('DOMContentLoaded', (event) => {
                 $a.href = window.location.origin+menu.url
                 $a.innerText = menu.label
                 $a.classList.add('nav-link')
-                $a.style = "color: #fff"
-                
+                $a.style = "color: #000"
+
                 if(menu.id === 'navLogout') $a.onclick = navLogout
 
                 $li.insertAdjacentElement('beforeend',$a)
@@ -61,6 +68,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         if (!menuLoadedCount) location.replace(window.location.origin+'/templates/error.html')
 
         $ul.classList.add('nav','justify-content-center')
+        $nav.insertAdjacentElement('afterbegin', $a)
         $fragment.append($ul)
 
         $nav.append($fragment)

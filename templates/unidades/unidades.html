@@ -34,7 +34,11 @@
     ></script>
   </head>
   <body>
-    <nav id="nav" class="navbar navbar navbar-dark bg-primary" style="justify-content: center;" ></nav>
+    <nav
+      id="nav"
+      class="navbar shadow p-3 mb-5 bg-white rounded"
+      style="justify-content: center"
+    ></nav>
 
     <div class="container">
       <div class="card-body">
@@ -46,10 +50,12 @@
           >
             <thead class="thead-light">
               <tr>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Empresa</th>
-                <th>Accion</th>
+                <th style="background-color: #add8e6; color: #000">Nombre</th>
+                <th style="background-color: #add8e6; color: #000">
+                  Descripcion
+                </th>
+                <th style="background-color: #add8e6; color: #000">Empresa</th>
+                <th style="background-color: #add8e6; color: #000">Accion</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -64,7 +70,12 @@
           <td></td>
         </tr>
       </template>
-      <div class="alert alert-danger mt-3" role="alert" id="alerta" style="display: none;">
+      <div
+        class="alert alert-danger mt-3""
+        role="alert"
+        id="alerta"
+        style="display: none"
+      >
         Si quieres eliminar un usuario ingresa
         <a href="./deleteUnidades.html" class="alert-link">aquí</a>
       </div>
@@ -104,11 +115,17 @@
           id="btnSubmit"
           name="crearUsuario"
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-light"
+          style="background-color: #add8e6"
         >
           Registrar
         </button>
-        <button type="button" name="cancelar" class="btn btn-primary">
+        <button
+          type="button"
+          name="cancelar"
+          class="btn btn-light"
+          style="background-color: #add8e6"
+        >
           Cancelar
         </button>
         <input id="internalDriveId" type="hidden" />
