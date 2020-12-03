@@ -21,7 +21,6 @@ function getIndicaciones() {
   return dataPromise;
 }
 
-
 getIndicaciones().then((indicaciones) => {
   for (const indicacion of indicaciones.results) {
     console.log(indicacion);
@@ -32,47 +31,42 @@ getIndicaciones().then((indicaciones) => {
     const $terminada = d.createElement("input");
     const $nombreUsuario = d.getElementById("nombreUsuario");
     const $nombreTarea = d.getElementById("nombreTarea");
-    const $idIndicacion = d.createElement("input");
     $formGroup.className = "form-check mb-2";
     $label.className = "form-check-label";
     $nombreIndic.innerText = indicacion.indicaciones;
     $terminada.type = "checkbox";
     $terminada.className = "form-check-input";
-    $terminada.id = 'terminada'
-    $label.innerHTML = "Terminada";
+    $terminada.value = indicacion.id;
+    $label.innerHTML = "Terminar";
     $nombreUsuario.value = indicacion.nombre_usuario;
     $nombreTarea.value = indicacion.nombre_tarea;
-    $idIndicacion.hidden = true;
-    $idIndicacion.className = 'idIndicaciones';
-    $idIndicacion.value = indicacion.id;
     indicacion.terminada
       ? (($terminada.checked = true), ($terminada.disabled = true))
       : false;
     $formGroup.appendChild($nombreIndic);
     $formGroup.appendChild($terminada);
     $formGroup.appendChild($label);
-    $formGroup.appendChild($idIndicacion);
     $indicacion.appendChild($formGroup);
   }
 });
 
 async function indicacion_tarea(id, terminada) {
   const response = await apiRequest({
-      url: `http://127.0.0.1:8000/indicacion_tarea/${id}/`,
-      method: "PUT",
-      token: token,
-      body: {
-          id,
-          terminada,
-      },
-      action: "put indicacion",
+    url: `http://127.0.0.1:8000/indicacion_tarea/${id}/`,
+    method: "PUT",
+    token: token,
+    body: {
+      id,
+      terminada,
+    },
+    action: "put indicacion",
   });
   localStorage.setItem("Token", token);
 
   if (response) {
-    location.replace(`./realizarTareas.html?id=${idURL}`);
+    // location.replace(`./realizarTareas.html?id=${idURL}`);
   } else {
-      alert("Datos incorrectos");
+    alert("Datos incorrectos");
   }
 }
 
@@ -80,19 +74,14 @@ d.addEventListener("submit", (event) => {
   event.preventDefault();
   const target = event.target;
   var checkedValue = null;
-  var idIndicacion = null;
-  var inputElements = document.getElementsByClassName("form-check-input");
-  var inputId = d.getElementsByClassName("idIndicaciones");
+  let inputElements = document.getElementsByClassName("form-check-input");
 
-  for (let i = 0; i < inputId.length; ++i) {
-    for (var j = 0; inputElements[j]; ++j) {
-      if (inputElements[j].checked) {
-        checkedValue = inputElements[j].checked;
-        idIndicacion = inputId[i];
+  if (target.id === "indicaciones-form") {
+    for (let j = 0; j < inputElements.length; j++) {
+      checkedValue = inputElements[j].checked;
+      if (checkedValue) {
+        indicacion_tarea(inputElements[j].value, checkedValue);
       }
-    }
-    if (target.id === "indicaciones-form") {
-      indicacion_tarea(idIndicacion.value, checkedValue);
     }
   }
 });

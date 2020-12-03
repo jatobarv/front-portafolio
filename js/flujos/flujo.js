@@ -1,10 +1,10 @@
 import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
-const user = localStorage.getItem("username");
 
 let arrTareas = [];
 let nPags;
 let nTareas;
+let tareas;
 
 function getTareasAsignadas() {
   const promise = axios.get(`http://127.0.0.1:8000/tareas_asignadas/`, {
@@ -53,7 +53,6 @@ getTareasAsignadas().then((data) => {
           var tdReporte = document.createElement("td");
           var link = document.createElement("a");
           var realizar = document.createElement("a");
-          var indicacion = document.createElement("a");
 
           tdId.appendChild(document.createTextNode(tarea.id));
           tdName.appendChild(document.createTextNode(tarea.nombre_tarea));
@@ -96,17 +95,6 @@ getTareasAsignadas().then((data) => {
           tr.appendChild(tdFuncion);
           tr.appendChild(tdReporte);
           sel.appendChild(tr);
-
-          tdReporte.appendChild(indicacion);
-          indicacion.textContent = "Indicacion";
-          indicacion.id = tarea.id;
-          indicacion.setAttribute("data-toggle", "modal");
-          indicacion.setAttribute("data-target", "#addIndicacion");
-          indicacion.className = "btn btn-success";
-          indicacion.onclick = function () {
-            document.getElementById("id_tarea").value = tarea.id;
-            document.getElementById("tareas").value = tarea.tarea;
-          };
 
           let fecInicio = new Date(tarea.fecha_inicio);
           let fecTermino = new Date(tarea.fecha_termino);
@@ -164,42 +152,6 @@ d.addEventListener("submit", (event) => {
       target.detalle.value,
       target.tarea.value,
       user_id
-    );
-  }
-});
-
-async function addIndicacion(id_tarea, tarea, usuario, indicaciones) {
-  const response = await apiRequest({
-    url: "http://127.0.0.1:8000/indicacion_tarea/",
-    method: "POST",
-    token: token,
-    body: {
-      id_tarea,
-      tarea,
-      usuario,
-      indicaciones,
-    },
-    action: "post indicacion",
-  });
-  localStorage.setItem("Token", token);
-
-  if (response) {
-    location.replace("./flujos.html");
-  } else {
-    alert("Datos incorrectos");
-  }
-}
-
-d.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const target = event.target;
-
-  if (target.id === "agregar-indicacion") {
-    addIndicacion(
-      target.id_tarea.value,
-      target.tarea.value,
-      user_id,
-      target.indicaciones.value
     );
   }
 });

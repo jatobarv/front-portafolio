@@ -185,7 +185,8 @@ async function asignarTareas(
 
     if (response) {
         // localStorage.setItem("Token", response.token);
-        location.replace("./asignarTareas.html");
+        const idTarea = response.id;
+        location.replace(`./asignarIndicacion.html?id=${idTarea}&tarea=${tarea}`);
     } else {
         alert("Datos incorrectos");
     }
