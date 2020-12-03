@@ -64,7 +64,7 @@ async function indicacion_tarea(id, terminada) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    // location.replace(`./realizarTareas.html?id=${idURL}`);
+    location.replace(`./realizarTareas.html?id=${idURL}`);
   } else {
     alert("Datos incorrectos");
   }
