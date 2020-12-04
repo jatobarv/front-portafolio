@@ -68,6 +68,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         if (!menuLoadedCount) location.replace(window.location.origin+'/templates/error.html')
 
         $ul.classList.add('nav','justify-content-center')
+        $ul.style = "margin: auto;"
         $nav.insertAdjacentElement('afterbegin', $a)
         $fragment.append($ul)
 

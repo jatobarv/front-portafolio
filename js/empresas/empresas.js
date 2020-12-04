@@ -4,6 +4,7 @@ const token = localStorage.getItem("Token");
 let emps;
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 
 //DOM Content
@@ -131,10 +132,11 @@ d.addEventListener('submit', async (event) => {
 						action: 'postEmp'
 				})
 				
-				if (response) {
-					// localStorage.setItem("Token", response.token);
-					location.replace("./empresas.html");
-			}
+            if (response) {
+                okBtn.onclick = function () {
+                  location.replace("./empresas.html");
+                };
+              }
         if (emps.find((emp) => emp.id == response.id)){
             emps[emps.findIndex(emp => emp.id == response.id)] = response
             loadUserList()

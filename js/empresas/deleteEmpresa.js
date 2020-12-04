@@ -1,6 +1,7 @@
 const token = localStorage.getItem("Token");
 
 const d = document;
+const deleteBtn = d.getElementById("borrar");
 
 function getEmpresas() {
   const promise = axios.get(`http://127.0.0.1:8000/empresas/`, {
@@ -74,7 +75,9 @@ d.addEventListener("submit", (event) => {
       checkedValue = inputElements[i].id;
       console.log(inputElements[i].id);
       if (target.id === "empresa-form-delete") {
-        deleteEmpresa(checkedValue);
+        deleteBtn.onclick = function () {
+          deleteEmpresa(checkedValue);
+        };
       }
     }
   }

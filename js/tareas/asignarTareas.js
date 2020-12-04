@@ -2,6 +2,7 @@ import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 var nTareas;
 var nPags;
@@ -184,9 +185,10 @@ async function asignarTareas(
     localStorage.setItem("Token", token);
 
     if (response) {
-        // localStorage.setItem("Token", response.token);
-        const idTarea = response.id;
-        location.replace(`./asignarIndicacion.html?id=${idTarea}&tarea=${tarea}`);
+        okBtn.onclick = function () {
+            const idTarea = response.id;
+            location.replace(`./asignarIndicacion.html?id=${idTarea}&tarea=${tarea}`);
+        };
     } else {
         alert("Datos incorrectos");
     }

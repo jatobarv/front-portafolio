@@ -4,6 +4,7 @@ const urlParams = new URLSearchParams(queryString);
 const idURL = urlParams.get("id");
 const token = localStorage.getItem("Token");
 const d = document;
+const okBtn = d.getElementById("ok");
 
 function getIndicaciones() {
   const promise = axios.get(
@@ -64,7 +65,9 @@ async function indicacion_tarea(id, terminada) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    location.replace(`./realizarTareas.html?id=${idURL}`);
+    okBtn.onclick = function () {
+      location.replace(`./realizarTareas.html?id=${idURL}`);
+    };
   } else {
     alert("Datos incorrectos");
   }

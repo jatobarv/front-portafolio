@@ -1,6 +1,7 @@
 const token = localStorage.getItem("Token");
 
 const d = document;
+const deleteBtn = d.getElementById("borrar");
 
 function getFunciones() {
   const promise = axios.get(`http://127.0.0.1:8000/funciones/`, {
@@ -59,7 +60,7 @@ async function deleteFunciones(id) {
 
   localStorage.setItem("Token", token);
 
-//   location.replace("./deleteFunciones.html");
+  location.replace("./deleteFunciones.html");
   return dataPromise;
 }
 
@@ -74,7 +75,9 @@ d.addEventListener("submit", (event) => {
       checkedValue = inputElements[i].id;
       console.log(inputElements[i].id);
       if (target.id === "funcion-form-delete") {
-        deleteFunciones(checkedValue);
+        deleteBtn.onclick = function () {
+          deleteFunciones(checkedValue);
+        };
       }
     }
   }

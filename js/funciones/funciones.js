@@ -2,6 +2,7 @@ import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 var nCreadores;
 var nPags;
@@ -196,8 +197,9 @@ async function addFuncion(
     localStorage.setItem("Token", token);
 
     if (response) {
-        // localStorage.setItem("Token", response.token);
-        location.replace("./funciones.html");
+        okBtn.onclick = function () {
+            location.replace("./funciones.html");
+        };
     } else {
         alert("Datos incorrectos");
     }

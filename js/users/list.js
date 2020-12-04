@@ -1,6 +1,7 @@
 import { apiRequest } from '../module.js'
 
 const d = document;
+const okBtn = d.getElementById("ok");
 let users;
 
 //DOM Content
@@ -156,10 +157,11 @@ d.addEventListener('submit', async (event) => {
 						action: 'postUser'
 				})
 				
-				if (response) {
-					// localStorage.setItem("Token", response.token);
-					location.replace("./list.html");
-			}
+            if (response) {
+                okBtn.onclick = function () {
+                  location.replace("./list.html");
+                };
+              }
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response
             loadUserList()

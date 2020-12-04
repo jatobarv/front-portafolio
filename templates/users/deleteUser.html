@@ -25,6 +25,16 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/modal-delete.css" />
   </head>
 
   <body>
@@ -52,6 +62,8 @@
           type="submit"
           class="btn btn-light"
           style="background-color: #add8e6"
+          data-toggle="modal"
+          data-target="#myModal"
         >
           Eliminar Usuario
         </button>
@@ -59,6 +71,44 @@
       <div class="alert alert-primary mt-3" role="alert">
         Si quieres agregar un usuario ingresa
         <a href="./list.html" class="alert-link">aquí</a>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-delete">
+        <div class="modal-content">
+          <div class="modal-header flex-column">
+            <div class="icon-box">
+              <i class="material-icons">&#xE5CD;</i>
+            </div>
+            <h4 class="modal-title w-100">¿Estás seguro?</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              ¿Seguro que quieres eliminarlos? Este proceso no se puede deshacer
+            </p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" id="borrar">
+              Eliminar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -8,6 +8,7 @@ const d = document;
 const user_id = localStorage.getItem("user_id");
 const ico = d.getElementById("add-ico");
 const cln = d.getElementById("add");
+const okBtn = d.getElementById("ok");
 
 d.getElementById("id-tarea").value = idURL;
 d.getElementById("tarea").value = tareaURL;
@@ -34,7 +35,9 @@ async function addIndicacion(id_tarea, tarea, usuario, indicaciones) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    location.replace("../flujos/flujos.html");
+    okBtn.onclick = function () {
+      location.replace("../flujos/flujos.html");
+    };
   } else {
     alert("Datos incorrectos");
   }

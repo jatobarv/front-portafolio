@@ -1,6 +1,7 @@
 const token = localStorage.getItem("Token");
 
 const d = document;
+const deleteBtn = d.getElementById("borrar");
 
 function getUsuarios() {
   const promise = axios.get(`http://127.0.0.1:8000/usuarios/`, {
@@ -59,7 +60,7 @@ async function deleteUser(id) {
 
   localStorage.setItem("Token", token);
 
-  // location.replace("./deleteUser.html");
+  location.replace("./deleteUser.html");
   return dataPromise;
 }
 
@@ -74,7 +75,9 @@ d.addEventListener("submit", (event) => {
       checkedValue = inputElements[i].id;
       console.log(inputElements[i].id);
       if (target.id === "users-form-delete") {
-        deleteUser(checkedValue);
+        deleteBtn.onclick = function () {
+          deleteUser(checkedValue);
+        };
       }
     }
   }

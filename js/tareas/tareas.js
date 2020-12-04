@@ -2,6 +2,7 @@ import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 async function tareas(nombre, descripcion) {
     const response = await apiRequest({
@@ -17,8 +18,9 @@ async function tareas(nombre, descripcion) {
     localStorage.setItem("Token", token);
 
     if (response) {
-        // localStorage.setItem("Token", response.token);
-        location.replace("./tareas.html");
+        okBtn.onclick = function () {
+          location.replace("./tareas.html");
+        };
     } else {
         alert("Datos incorrectos");
     }

@@ -25,6 +25,16 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/modal-success.css" />
   </head>
   <body>
     <div
@@ -48,6 +58,9 @@
           class="btn btn-light"
           style="background-color: #add8e6"
           type="submit"
+          data-toggle="modal"
+          data-target="#myModal"
+          id="confirmar"
         >
           Realizar Tarea
         </button>
@@ -56,6 +69,34 @@
         >
       </form>
     </div>
+
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE876;</i>
+            </div>
+            <h4 class="modal-title w-100">Listo!</h4>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              La tarea ha sido completada satisfactoriamente.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-success btn-block"
+              data-dismiss="modal"
+              id="ok"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="../../js/loadMenu.js"></script>
     <script type="module" src="../../js/tareas/realizarTareas.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

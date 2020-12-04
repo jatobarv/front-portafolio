@@ -1,6 +1,7 @@
 import { apiRequest } from '../module.js'
 
 const d = document;
+const okBtn = d.getElementById("ok");
 let internalDrives;
 let empresas;
 
@@ -133,10 +134,10 @@ d.addEventListener('submit', async (event) => {
             action: internalDriveId ? 'postInternalDrive' : 'putInternalDrive'
         })
 
-        if (internalDrives.find((internalDrive) => internalDrive.id == response.id)){
-            internalDrives[internalDrives.findIndex(internalDrive => internalDrive.id == response.id)] = response
-        }else{
-            internalDrives.push(response)
+        if (response) {
+            okBtn.onclick = function () {
+              location.replace("./unidades.html");
+            };
         }
         loadInternalDrivesList()
     }
