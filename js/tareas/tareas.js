@@ -18,9 +18,10 @@ async function tareas(nombre, descripcion) {
     localStorage.setItem("Token", token);
 
     if (response) {
-        okBtn.onclick = function () {
-          location.replace("./tareas.html");
-        };
+        $('#myModal').modal('show');
+        $('#myModal').on('hidden.bs.modal', function () {
+            location.replace("./tareas.html");
+        });
     } else {
         alert("Datos incorrectos");
     }

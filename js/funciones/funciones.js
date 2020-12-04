@@ -197,9 +197,10 @@ async function addFuncion(
     localStorage.setItem("Token", token);
 
     if (response) {
-        okBtn.onclick = function () {
+        $('#myModal').modal('show');
+        $('#myModal').on('hidden.bs.modal', function () {
             location.replace("./funciones.html");
-        };
+        });
     } else {
         alert("Datos incorrectos");
     }

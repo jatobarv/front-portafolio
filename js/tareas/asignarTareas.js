@@ -185,10 +185,11 @@ async function asignarTareas(
     localStorage.setItem("Token", token);
 
     if (response) {
-        okBtn.onclick = function () {
+        $('#myModal').modal('show');
+        $('#myModal').on('hidden.bs.modal', function () {
             const idTarea = response.id;
             location.replace(`./asignarIndicacion.html?id=${idTarea}&tarea=${tarea}`);
-        };
+        });
     } else {
         alert("Datos incorrectos");
     }

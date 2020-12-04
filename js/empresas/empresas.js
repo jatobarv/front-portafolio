@@ -133,9 +133,10 @@ d.addEventListener('submit', async (event) => {
 				})
 				
             if (response) {
-                okBtn.onclick = function () {
-                  location.replace("./empresas.html");
-                };
+                $('#myModal').modal('show');
+                $('#myModal').on('hidden.bs.modal', function () {
+                    location.replace("./empresas.html");
+                });
               }
         if (emps.find((emp) => emp.id == response.id)){
             emps[emps.findIndex(emp => emp.id == response.id)] = response

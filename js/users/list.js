@@ -158,9 +158,10 @@ d.addEventListener('submit', async (event) => {
 				})
 				
             if (response) {
-                okBtn.onclick = function () {
-                  location.replace("./list.html");
-                };
+                $('#myModal').modal('show');
+                $('#myModal').on('hidden.bs.modal', function () {
+                    location.replace("./list.html");
+                });
               }
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response

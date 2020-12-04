@@ -79,9 +79,10 @@ async function addRol(name, permissions) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    okBtn.onclick = function () {
+    $('#myModal').modal('show');
+    $('#myModal').on('hidden.bs.modal', function () {
       location.replace("./addRoles.html");
-    };
+  });
   }
 }
 

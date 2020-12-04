@@ -35,9 +35,10 @@ async function addIndicacion(id_tarea, tarea, usuario, indicaciones) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    okBtn.onclick = function () {
+    $('#myModal').modal('show');
+    $("#myModal").on("hidden.bs.modal", function () {
       location.replace("../flujos/flujos.html");
-    };
+    });
   } else {
     alert("Datos incorrectos");
   }

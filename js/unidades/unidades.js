@@ -135,9 +135,10 @@ d.addEventListener('submit', async (event) => {
         })
 
         if (response) {
-            okBtn.onclick = function () {
-              location.replace("./unidades.html");
-            };
+            $('#myModal').modal('show');
+            $('#myModal').on('hidden.bs.modal', function () {
+                location.replace("./unidades.html");
+            });
         }
         loadInternalDrivesList()
     }

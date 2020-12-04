@@ -65,9 +65,10 @@ async function indicacion_tarea(id, terminada) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    okBtn.onclick = function () {
+    $('#myModal').modal('show');
+    $('#myModal').on('hidden.bs.modal', function () {
       location.replace(`./realizarTareas.html?id=${idURL}`);
-    };
+  });
   } else {
     alert("Datos incorrectos");
   }
