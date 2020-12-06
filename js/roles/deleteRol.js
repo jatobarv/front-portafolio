@@ -66,18 +66,16 @@ async function deleteRol(id) {
 d.addEventListener("submit", (event) => {
   event.preventDefault();
   const target = event.target;
-  var checkedValue = null;
   var inputElements = document.getElementsByClassName("custom-control-input");
 
-  for (var i = 0; inputElements[i]; ++i) {
-    if (inputElements[i].checked) {
-      checkedValue = inputElements[i].id;
-      console.log(inputElements[i].id);
-      if (target.id === "roles-form-delete") {
-        deleteBtn.onclick = function () {
-          deleteRol(checkedValue);
-        };
+  if (target.id === "roles-form-delete") {
+    deleteBtn.onclick = function () {
+      for (let j = 0; j < inputElements.length; j++) {
+        if (inputElements[j].checked) {
+          const element = inputElements[j];
+          deleteRol(element.id);
+        }
       }
-    }
+    };
   }
 });
