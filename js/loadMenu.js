@@ -28,6 +28,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         const $ul = d.createElement('ul');  //UL PARA AGREGAR LA LISTA
         const $a = document.createElement('a');
         const $img = document.createElement('img');
+        const $div = d.getElementById('navbar');
         $img.src = "/templates/1jojVVCOMkX9Wyrexe4hGfJzKnTVQMg33Tpig3aD1fqVY4nScqgfVt8PQ8LwtFvwhKxkECc8A9jix8V4IQhQw0oWDTcNYcHj1zzw.png"
         $img.width = 116;
         $img.height = 64;
@@ -67,9 +68,10 @@ d.addEventListener('DOMContentLoaded', (event) => {
 
         if (!menuLoadedCount) location.replace(window.location.origin+'/templates/error.html')
 
-        $ul.classList.add('nav','justify-content-center')
+        // $ul.classList.add('nav','justify-content-center')
+        $ul.className = "navbar-nav mr-auto"
         $ul.style = "margin: auto;"
-        $nav.insertAdjacentElement('afterbegin', $a)
+        $div.insertAdjacentElement('afterbegin', $a)
         $fragment.append($ul)
 
         $nav.append($fragment)

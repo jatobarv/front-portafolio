@@ -39,10 +39,24 @@
 
   <body>
     <div
-      id="nav"
-      class="navbar shadow p-3 mb-5 bg-white rounded"
-      style="justify-content: center"
-    ></div>
+      class="navbar shadow p-3 mb-5 bg-white rounded navbar-expand-lg"
+      id="navbar"
+      style="background-color: #e3f2fd !important"
+    >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#nav"
+        aria-controls="nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        style="float: right; border: 1px solid"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav"></div>
+    </div>
     <div class="container mt-2">
       <form id="roles-form-delete">
         <div class="row">
