@@ -32,9 +32,11 @@ d.addEventListener('DOMContentLoaded', (event) => {
         const userPerm = await getPerm();
         let menuLoadedCount = 0;
         menus.forEach(menu => {
-            if (window.location.href.includes(menu.url) && !userPerm.includes(menu.perms) && menu.perms != "Todos" ) location.replace(window.location.origin + '/templates/error.html')
+            if (!userPerm.admin){
+                if (window.location.href.includes(menu.url) && !userPerm.includes(menu.perms) && menu.perms != "Todos" ) location.replace(window.location.origin + '/templates/error.html')
+            }
 
-            if(userPerm.includes(menu.perms) || menu.perms.includes('Todos') && userPerm != -1){
+            if(userPerm.admin || userPerm.includes(menu.perms) || menu.perms.includes('Todos') && userPerm != -1){
                 menu.perms.includes(userPerm)
                 const $li = document.createElement('li')
                 const $a = document.createElement('a')

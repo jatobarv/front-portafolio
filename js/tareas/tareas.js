@@ -5,7 +5,7 @@ const d = document;
 
 async function tareas(nombre, descripcion) {
     const response = await apiRequest({
-        url: "http://127.0.0.1:8000/tareas/",
+        url: "/tareas",
         method: "POST",
         token: token,
         body: {
@@ -17,8 +17,7 @@ async function tareas(nombre, descripcion) {
     localStorage.setItem("Token", token);
 
     if (response) {
-        // localStorage.setItem("Token", response.token);
-        location.replace("./tareas.html");
+        location.reload()
     } else {
         alert("Datos incorrectos");
     }

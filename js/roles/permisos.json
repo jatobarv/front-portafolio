@@ -1,0 +1,17 @@
+{
+    "permisos": [
+        "can_add_",
+        "can_get_",
+        "can_put_",
+        "can_del_"
+    ],
+    "tablas": [
+        "empresa",
+        "flujo",
+        "funcion",
+        "rol_usuario",
+        "tarea",
+        "unidad",
+        "usuario"
+    ]
+}

@@ -46,13 +46,13 @@ function loadEmpresasList(){
         const $button = d.createElement('button')
         
         $button.textContent = "EDITAR"
-				$button.name = "editarEmpresa"
-				$button.className = "btn btn-secondary";
+        $button.name = "editarEmpresa"
+        $button.className = "btn btn-secondary";
 
-        $button.setAttribute("data-emp-id",emp.id)
+        $button.setAttribute("data-emp-id",emp["ID"])
 
-        $td[0].textContent = emp.rut
-        $td[1].textContent = emp.nombre
+        $td[0].textContent = emp["RUT"]
+        $td[1].textContent = emp["NOMBRE"]
         $td[2].insertAdjacentElement('beforeend',$button)
 
         $fragment.append($tr)
@@ -72,7 +72,7 @@ d.addEventListener('DOMContentLoaded', async (event) => {
         action: "get empresas"
     });
     
-    emps = response.results
+    emps = Object.values(response)
     
     await loadEmpresasList()
 })
@@ -81,26 +81,20 @@ d.addEventListener('DOMContentLoaded', async (event) => {
 d.addEventListener('click', event => {
     const target = event.target;
     if(target.name == 'editarEmpresa' || target.name == 'cancelar'){
-
         if (target.dataset.empId){
             const id = target.dataset.empId
-            let empFound;
+            let empFound = emps.find(emp => emp["ID"] == id)
+
             $btnSubmit.textContent = "Editar"
 
-            emps.forEach(emp =>{
-                if (emp.id == id){
-                    empFound = emp
-                }
-            })
             if (empFound){
-                console.log(empFound)
-                $empId.value = empFound.id || ''
-                $rut.value = empFound.rut || ''
-                $nombre.value = empFound.nombre || ''
-                $email.value = empFound.email || ''
-                $telefono.value = empFound.telefono || ''
-                $direccion.value = empFound.direccion || ''
-                $region.value = empFound.region || ''
+                $empId.value = empFound["ID"] || ''
+                $rut.value = empFound["RUT"] || ''
+                $nombre.value = empFound["NOMBRE"] || ''
+                $email.value = empFound["EMAIL"] || ''
+                $telefono.value = empFound["TELEFONO"] || ''
+                $direccion.value = empFound["DIRECCION"] || ''
+                $region.value = empFound["REGION"] || ''
             }
         }
 

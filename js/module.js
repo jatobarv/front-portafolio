@@ -75,12 +75,16 @@ async function getPerm(){
         token
     })
 
-    Object.values(response).forEach(element => {
-        perms.push(element["NOMBRE"])
-    });
+    if (response["admin"]){
+        return response
+    }else{
+        Object.values(response).forEach(element => {
+            perms.push(element["NOMBRE"])
+        });
 
-    console.log(perms)
-    return perms
+        return perms
+    }
+
 }
 
 async function logout(){

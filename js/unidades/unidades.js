@@ -33,13 +33,13 @@ function loadInternalDrivesList(){
         const $button = d.createElement('button')
 
         $button.textContent = "EDITAR"
-				$button.name = "editarUnidadInterna"
-				$button.className = "btn btn-secondary"
-        $button.setAttribute("data-internal-drive-id",internalDrive.id)
+        $button.name = "editarUnidadInterna"
+        $button.className = "btn btn-secondary"
+        $button.setAttribute("data-internal-drive-id",internalDrive["ID"])
 
-        $td[0].textContent = internalDrive.nombre
-        $td[1].textContent = internalDrive.descripcion
-        $td[2].textContent = empresas.find(empresa => empresa.id == internalDrive.empresa).nombre
+        $td[0].textContent = internalDrive["NOMBRE"]
+        $td[1].textContent = internalDrive["DESCRIPCION"]
+        $td[2].textContent = empresas.find(empresa => empresa["ID"] == internalDrive["ID_EMPRESA"])["NOMBRE"]
         $td[3].insertAdjacentElement('beforeend',$button)
 
         $fragment.append($tr)
@@ -53,29 +53,29 @@ d.addEventListener('DOMContentLoaded', async (event) => {
     const token = localStorage.getItem('Token')
     
     let response = await apiRequest({
-        url: 'http://127.0.0.1:8000/unidades/',
+        url: '/unidades',
         method: "GET",
         token,
         action: "get internal drives"
     });
     
-    internalDrives = response.results
+    internalDrives = Object.values(response)
     
     
     response = await apiRequest({
-        url: 'http://127.0.0.1:8000/empresas/',
+        url: '/empresas',
         method: "GET",
         token,
         action: "get empresas"
     });
     
-    empresas = response.results
+    empresas = Object.values(response)
     
     $fragment.innerHTML = '';
     empresas.forEach(empresa => {
         const $option = d.createElement('option')
-        $option.value = empresa.id
-        $option.textContent = empresa.nombre
+        $option.value = empresa["ID"]
+        $option.textContent = empresa["NOMBRE"]
         $fragment.append($option)
     })
     
@@ -94,16 +94,16 @@ d.addEventListener('click', event => {
             $btnSubmit.textContent = "Editar"
             
             internalDrives.forEach(internalDrive =>{
-                if (internalDrive.id == id){
+                if (internalDrive["ID"] == id){
                     internalDriveFound = internalDrive
                 }
             })
 
             if (internalDriveFound){
-                $internalDriveId.value = internalDriveFound.id
-                $nombre.value = internalDriveFound.nombre
-                $descripcion.value = internalDriveFound.descripcion
-                $empresa.value = internalDriveFound.empresa
+                $internalDriveId.value = internalDriveFound["ID"]
+                $nombre.value = internalDriveFound["NOMBRE"]
+                $descripcion.value = internalDriveFound["DESCRIPCION"]
+                $empresa.value = internalDriveFound["ID_EMPRESA"]
             }
         }
     }
@@ -115,7 +115,6 @@ d.addEventListener('click', event => {
 })
 
 d.addEventListener('submit', async (event) => {
-    event.preventDefault()
     const target = event.target;
 
     if (target.id == "internalDriveForm"){
@@ -123,22 +122,15 @@ d.addEventListener('submit', async (event) => {
         const body = {
             nombre: $nombre.value,
             descripcion: $descripcion.value,
-            empresa: $empresa.value
+            id_empresa: $empresa.value
         }
         const response = await apiRequest({
-            url: $internalDriveId.value ? 'http://127.0.0.1:8000/unidades/'+$internalDriveId.value+'/' : 'http://127.0.0.1:8000/unidades/',
+            url: $internalDriveId.value ? '/unidades/'+$internalDriveId.value+'/' : '/unidades',
             method: $internalDriveId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
             action: internalDriveId ? 'postInternalDrive' : 'putInternalDrive'
         })
-
-        if (internalDrives.find((internalDrive) => internalDrive.id == response.id)){
-            internalDrives[internalDrives.findIndex(internalDrive => internalDrive.id == response.id)] = response
-        }else{
-            internalDrives.push(response)
-        }
-        loadInternalDrivesList()
     }
 })
 const user = localStorage.getItem('username');
