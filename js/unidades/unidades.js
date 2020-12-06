@@ -1,6 +1,7 @@
 import { apiRequest } from '../module.js'
 
 const d = document;
+const okBtn = d.getElementById("ok");
 let internalDrives;
 let empresas;
 
@@ -131,6 +132,17 @@ d.addEventListener('submit', async (event) => {
             body,
             action: internalDriveId ? 'postInternalDrive' : 'putInternalDrive'
         })
+<<<<<<< HEAD
+=======
+
+        if (response) {
+            $('#myModal').modal('show');
+            $('#myModal').on('hidden.bs.modal', function () {
+                location.replace("./unidades.html");
+            });
+        }
+        loadInternalDrivesList()
+>>>>>>> develop
     }
 })
 const user = localStorage.getItem('username');

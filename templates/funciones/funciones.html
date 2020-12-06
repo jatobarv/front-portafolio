@@ -25,9 +25,37 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/modal-success.css" />
   </head>
   <body>
-    <div id="nav" class="navbar navbar navbar-dark bg-primary" style="justify-content: center;" ></div>
+    <div
+      class="navbar shadow p-3 mb-5 bg-white rounded navbar-expand-lg"
+      id="navbar"
+      style="background-color: #e3f2fd !important"
+    >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#nav"
+        aria-controls="nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        style="float: right; border: 1px solid"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav"></div>
+    </div>
     <div class="container">
       <div class="card-body">
         <div class="table-responsive" style="max-height: 300px">
@@ -39,23 +67,38 @@
           >
             <thead class="thead-light">
               <tr>
-                <th>ID Tarea</th>
-                <th>Nombre Función</th>
-                <th>Descripción Función</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Termino</th>
-                <th>Porcentaje</th>
-                <th>Tarea</th>
-                <th>Unidad</th>
-                <th>Creador</th>
-                <th></th>
+                <th style="background-color: #add8e6; color: #000">ID Tarea</th>
+                <th style="background-color: #add8e6; color: #000">
+                  Nombre Función
+                </th>
+                <th style="background-color: #add8e6; color: #000">
+                  Descripción Función
+                </th>
+                <th style="background-color: #add8e6; color: #000">
+                  Fecha Inicio
+                </th>
+                <th style="background-color: #add8e6; color: #000">
+                  Fecha Termino
+                </th>
+                <th style="background-color: #add8e6; color: #000">
+                  Porcentaje
+                </th>
+                <th style="background-color: #add8e6; color: #000">Tarea</th>
+                <th style="background-color: #add8e6; color: #000">Unidad</th>
+                <th style="background-color: #add8e6; color: #000">Creador</th>
+                <th style="background-color: #add8e6; color: #000"></th>
               </tr>
             </thead>
             <tbody id="table-body"></tbody>
           </table>
         </div>
       </div>
-      <div class="alert alert-danger mt-3" role="alert" id="alerta" style="display: none;">
+      <div
+        class="alert alert-danger mt-3""
+        role="alert"
+        id="alerta"
+        style="display: none"
+      >
         Si quieres eliminar una empresa ingresa
         <a href="./deleteFunciones.html" class="alert-link">aquí</a>
       </div>
@@ -147,24 +190,55 @@
           ></select>
         </div>
         <button
-          class="btn btn-primary"
+          class="btn btn-light"
+          style="background-color: #add8e6"
           id="agregar_tarea"
           type="button"
           value="POST"
+          data-toggle="modal"
         >
-          Añadir Tarea
+          Añadir Función
         </button>
         <button
-          class="btn btn-secondary"
+          class="btn btn-light"
+          style="background-color: #add8e6"
           id="modificar_tarea"
           type="button"
           value="PUT"
         >
-          Modificar Tarea
+          Modificar Función
         </button>
       </form>
       <input class="form-control" id="select-id" name="id" hidden />
     </div>
+
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE876;</i>
+            </div>
+            <h4 class="modal-title w-100">Listo!</h4>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              La función ha sido creada satisfactoriamente.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-success btn-block"
+              data-dismiss="modal"
+              id="ok"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="../../js/loadMenu.js"></script>
     <script type="module" src="../../js/funciones/funciones.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

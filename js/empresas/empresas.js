@@ -4,6 +4,7 @@ const token = localStorage.getItem("Token");
 let emps;
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 
 //DOM Content
@@ -126,9 +127,17 @@ d.addEventListener('submit', async (event) => {
             })
 				
             if (response) {
+<<<<<<< HEAD
                 // localStorage.setItem("Token", response.token);
                 location.replace("./empresas.html");
 			}
+=======
+                $('#myModal').modal('show');
+                $('#myModal').on('hidden.bs.modal', function () {
+                    location.replace("./empresas.html");
+                });
+              }
+>>>>>>> develop
         if (emps.find((emp) => emp.id == response.id)){
             emps[emps.findIndex(emp => emp.id == response.id)] = response
             loadUserList()

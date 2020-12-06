@@ -1,6 +1,7 @@
 const token = localStorage.getItem("Token");
 
 const d = document;
+const deleteBtn = d.getElementById("borrar");
 
 function getUnidades() {
   const promise = axios.get(`http://127.0.0.1:8000/unidades/`, {
@@ -66,16 +67,16 @@ async function deleteUnidades(id) {
 d.addEventListener("submit", (event) => {
   event.preventDefault();
   const target = event.target;
-  var checkedValue = null;
   var inputElements = document.getElementsByClassName("custom-control-input");
 
-  for (var i = 0; inputElements[i]; ++i) {
-    if (inputElements[i].checked) {
-      checkedValue = inputElements[i].id;
-      console.log(inputElements[i].id);
-      if (target.id === "unidad-form-delete") {
-        deleteUnidades(checkedValue);
+  if (target.id === "unidad-form-delete") {
+    deleteBtn.onclick = function () {
+      for (let j = 0; j < inputElements.length; j++) {
+        if (inputElements[j].checked) {
+          const element = inputElements[j];
+          deleteUnidades(element.id);
+        }
       }
-    }
+    };
   }
 });

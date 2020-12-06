@@ -1,101 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Asignar Tareas</title>
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"
-        ></script>
-    </head>
-    <body>
-        <div id="nav" class="navbar navbar navbar-dark bg-primary" style="justify-content: center;" ></div>
-        <div class="container">
-            <form id="tareas_asignadas" autocomplete="off" style="width: 500px; margin: 12px auto">
-                <div class="form-group">
-                    <label for="fecha_inicio">Fecha Inicio</label>
-                    <input
-                        class="form-control"
-                        name="fecha_inicio"
-                        type="date"
-                        placeholder="Fecha Inicio"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="fecha_termino">Fecha Término</label>
-                    <input
-                        class="form-control"
-                        name="fecha_termino"
-                        type="date"
-                        placeholder="Fecha Término"
-                        required
-                    />
-                </div>
-                <div class="form-check">
-                    <input
-                        class="form-check-input"
-                        name="terminada"
-                        type="checkbox"
-                    />
-                    <label class="form-check-label" for="terminada"
-                        >Terminada</label
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="tarea">Tarea</label>
-                    <select
-                        class="form-control"
-                        id="select-tarea"
-                        name="tarea"
-                        required
-                    ></select>
-                </div>
-                <div class="form-group">
-                    <label for="asignado">Asignado</label>
-                    <select
-                        class="form-control"
-                        id="select-asignado"
-                        name="asignado"
-                        required
-                    ></select>
-                </div>
-                <div class="form-group">
-                    <label for="funcion">Función</label>
-                    <select
-                        class="form-control"
-                        id="select-funcion"
-                        name="funcion"
-                        required
-                    ></select>
-                </div>
-                <button class="btn btn-primary" type="submit">
-                    Asignar Tarea
-                </button>
-            </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asignar Tareas</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/modal-success.css" />
+  </head>
+  <body>
+    <div
+      class="navbar shadow p-3 mb-5 bg-white rounded navbar-expand-lg"
+      id="navbar"
+      style="background-color: #e3f2fd !important"
+    >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#nav"
+        aria-controls="nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        style="float: right; border: 1px solid"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav"></div>
+    </div>
+    <div class="container">
+      <form
+        id="tareas_asignadas"
+        autocomplete="off"
+        style="width: 500px; margin: 12px auto"
+      >
+        <div class="form-group">
+          <label for="fecha_inicio">Fecha Inicio</label>
+          <input
+            class="form-control"
+            name="fecha_inicio"
+            type="date"
+            placeholder="Fecha Inicio"
+            required
+          />
         </div>
-        
-        <script type="module" src="../../js/loadMenu.js"></script>
-        <script type="module" src="../../js/tareas/asignarTareas.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
-    </body>
+        <div class="form-group">
+          <label for="fecha_termino">Fecha Término</label>
+          <input
+            class="form-control"
+            name="fecha_termino"
+            type="date"
+            placeholder="Fecha Término"
+            required
+          />
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" name="terminada" type="checkbox" />
+          <label class="form-check-label" for="terminada">Terminada</label>
+        </div>
+        <div class="form-group">
+          <label for="tarea">Tarea</label>
+          <select
+            class="form-control"
+            id="select-tarea"
+            name="tarea"
+            required
+          ></select>
+        </div>
+        <div class="form-group">
+          <label for="asignado">Asignado</label>
+          <select
+            class="form-control"
+            id="select-asignado"
+            name="asignado"
+            required
+          ></select>
+        </div>
+        <div class="form-group">
+          <label for="funcion">Función</label>
+          <select
+            class="form-control"
+            id="select-funcion"
+            name="funcion"
+            required
+          ></select>
+        </div>
+        <button
+          class="btn btn-light"
+          style="background-color: #add8e6"
+          type="submit"
+          data-toggle="modal"
+          id="confirmar"
+        >
+          Asignar Tarea
+        </button>
+      </form>
+    </div>
+
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE876;</i>
+            </div>
+            <h4 class="modal-title w-100">Listo!</h4>
+          </div>
+          <div class="modal-body">
+            <p class="text-center">
+              La tarea ha sido asignada satisfactoriamente.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-success btn-block"
+              data-dismiss="modal"
+              id="ok"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../../js/loadMenu.js"></script>
+    <script type="module" src="../../js/tareas/asignarTareas.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="module" src="../../js/roles/addRoles.js"></script> -->
+  </body>
 </html>

@@ -1,6 +1,7 @@
 import { apiRequest } from '../module.js'
 
 const d = document;
+const okBtn = d.getElementById("ok");
 let users;
 
 //DOM Content
@@ -155,6 +156,7 @@ d.addEventListener('submit', async (event) => {
             method: $userId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
+<<<<<<< HEAD
             action: 'postUser'
         })
         
@@ -164,6 +166,17 @@ d.addEventListener('submit', async (event) => {
             location.replace("./list.html");
         }
 
+=======
+						action: 'postUser'
+				})
+				
+            if (response) {
+                $('#myModal').modal('show');
+                $('#myModal').on('hidden.bs.modal', function () {
+                    location.replace("./list.html");
+                });
+              }
+>>>>>>> develop
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response
             loadUserList()

@@ -2,6 +2,7 @@ import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
 
 const d = document;
+const okBtn = d.getElementById("ok");
 
 var nCreadores;
 var nPags;
@@ -19,7 +20,6 @@ var $creador = d.getElementById("select-creador");
 var $unidad = d.getElementById("select-unidad");
 
 var nTareas;
-var nPags;
 var tareas = [];
 
 function getTareas() {
@@ -197,8 +197,10 @@ async function addFuncion(
     localStorage.setItem("Token", token);
 
     if (response) {
-        // localStorage.setItem("Token", response.token);
-        location.replace("./funciones.html");
+        $('#myModal').modal('show');
+        $('#myModal').on('hidden.bs.modal', function () {
+            location.replace("./funciones.html");
+        });
     } else {
         alert("Datos incorrectos");
     }
