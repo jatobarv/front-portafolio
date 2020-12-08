@@ -22,7 +22,6 @@ function getFunciones() {
 
 getFunciones().then((data) => {
   for (const funcion of data.results) {
-    console.log(funcion);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");

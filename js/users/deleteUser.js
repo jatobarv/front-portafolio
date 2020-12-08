@@ -22,7 +22,6 @@ function getUsuarios() {
 
 getUsuarios().then((data) => {
   for (const usuario of data.results) {
-    console.log(usuario);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");

@@ -24,7 +24,6 @@ function getTareas() {
 getTareas()
     .then((data) => {
         nTareas = data.count;
-        console.log(data);
         nPags = Math.round(nTareas / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -39,7 +38,6 @@ getTareas()
                 })
                 .then((res) => {
                     tareas = res.data.results;
-                    console.log(tareas);
 
                     for (const tarea of tareas) {
                         var selAsignado = document.getElementById(
@@ -75,7 +73,6 @@ function getAsignados() {
 getAsignados()
     .then((data) => {
         nAsignado = data.count;
-        console.log(data);
         nPags = Math.round(nAsignado / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -90,7 +87,6 @@ getAsignados()
                 })
                 .then((res) => {
                     usuarios = res.data.results;
-                    console.log(usuarios);
 
                     for (const usuario of usuarios) {
                         var selAsignado = document.getElementById(
@@ -126,7 +122,6 @@ function getFunciones() {
 getFunciones()
     .then((data) => {
         nFunciones = data.count;
-        console.log(data);
         nPags = Math.round(nFunciones / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -141,7 +136,6 @@ getFunciones()
                 })
                 .then((res) => {
                     funciones = res.data.results;
-                    console.log(funciones);
 
                     for (const funcion of funciones) {
                         var selCreador = document.getElementById(
@@ -151,7 +145,6 @@ getFunciones()
                         opt.text = funcion.nombre;
                         opt.value = funcion.id;
                         selCreador.appendChild(opt);
-                        console.log(opt.value);
                     }
                 });
         }

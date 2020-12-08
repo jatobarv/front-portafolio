@@ -22,7 +22,6 @@ function getEmpresas() {
 
 getEmpresas().then((data) => {
   for (const empresa of data.results) {
-    console.log(empresa);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");

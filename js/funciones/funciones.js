@@ -38,7 +38,6 @@ function getTareas() {
 getTareas()
     .then((data) => {
         nTareas = data.count;
-        console.log(data);
         nPags = Math.round(nTareas / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -53,7 +52,6 @@ getTareas()
                 })
                 .then((res) => {
                     tareas = res.data.results;
-                    console.log(tareas);
 
                     for (const tarea of tareas) {
                         var selAsignado = document.getElementById(
@@ -85,7 +83,6 @@ function getCreadores() {
 getCreadores()
     .then((data) => {
         nCreadores = data.count;
-        console.log(data);
         nPags = Math.round(nCreadores / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -100,7 +97,6 @@ getCreadores()
                 })
                 .then((res) => {
                     usuarios = res.data.results;
-                    console.log(usuarios);
 
                     for (const usuario of usuarios) {
                         var selCreador = document.getElementById(
@@ -136,7 +132,6 @@ function getUnidades() {
 getUnidades()
     .then((data) => {
         nUnidades = data.count;
-        console.log(data);
         nPags = Math.round(nUnidades / 10);
         if (nPags === 0) {
             nPags = 1;
@@ -151,7 +146,6 @@ getUnidades()
                 })
                 .then((res) => {
                     unidades = res.data.results;
-                    console.log(unidades);
 
                     for (const unidad of unidades) {
                         var selCreador = document.getElementById(
@@ -161,7 +155,6 @@ getUnidades()
                         opt.text = unidad.nombre;
                         opt.value = unidad.id;
                         selCreador.appendChild(opt);
-                        console.log(opt.value);
                     }
                 });
         }
@@ -224,7 +217,6 @@ getFunciones().then((funciones) => {
     nFunciones = funciones.count;
     nPags = Math.ceil(nFunciones / 10);
     
-    console.log("pags: " +nPags);
     if (nPags === 0) {
         nPags = 1;
     }
@@ -337,7 +329,6 @@ getFunciones().then((funciones) => {
             });
     }
     for (const funcion of funciones.results) {
-        console.log(funcion);
     }
 });
 

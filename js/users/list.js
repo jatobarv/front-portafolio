@@ -110,7 +110,6 @@ d.addEventListener('click', event => {
                 }
             })
             if (userFound){
-                console.log(userFound)
                 $userId.value = userFound.id || ''
                 $username.value = userFound.username || ''
                 $rut.value = userFound.rut || ''
@@ -134,7 +133,6 @@ d.addEventListener('click', event => {
 d.addEventListener('submit', async (event) => {
     event.preventDefault()
     const target = event.target;
-    console.log(target)
     if (target.id == "userForm"){
         const body = {
             username: $username.value,

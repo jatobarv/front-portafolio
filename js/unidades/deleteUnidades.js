@@ -22,7 +22,6 @@ function getUnidades() {
 
 getUnidades().then((data) => {
   for (const unidad of data.results) {
-    console.log(unidad);
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");

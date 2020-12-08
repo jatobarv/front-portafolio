@@ -94,7 +94,6 @@ d.addEventListener('click', event => {
                 }
             })
             if (empFound){
-                console.log(empFound)
                 $empId.value = empFound.id || ''
                 $rut.value = empFound.rut || ''
                 $nombre.value = empFound.nombre || ''
@@ -114,7 +113,6 @@ d.addEventListener('click', event => {
 d.addEventListener('submit', async (event) => {
     event.preventDefault()
     const target = event.target;
-    console.log(target)
     if (target.id == "empForm"){
         const body = {
             rut: $rut.value,

@@ -43,7 +43,6 @@ getPermisos()
         })
         .then((res) => {
           permisos = res.data.results;
-          console.log(permisos);
 
           for (const permiso of permisos) {
             var sel = document.getElementById("select-permisos");
@@ -74,7 +73,6 @@ async function addRol(name, permissions) {
     },
     action: "post roles",
   });
-  console.log(response);
 
   localStorage.setItem("Token", token);
 

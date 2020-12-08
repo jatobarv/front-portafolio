@@ -7,14 +7,18 @@ const token = localStorage.getItem("Token");
 const d = document;
 const user_id = localStorage.getItem("user_id");
 const ico = d.getElementById("add-ico");
-const cln = d.getElementById("add");
-const okBtn = d.getElementById("ok");
-
+const cln = d.getElementById("form");
 d.getElementById("id-tarea").value = idURL;
 d.getElementById("tarea").value = tareaURL;
 
 ico.onclick = function () {
-  const form = d.getElementById("form").cloneNode(true);
+  ico.style = "margin: 12px 0; cursor: pointer"
+  const form = d.createElement("input");
+  form.setAttribute("placeholder", "Agregar indicación");
+  form.setAttribute("name", "indicaciones[]");
+  form.setAttribute("type", "text");
+  form.className = "form-control indi";
+  form.style = "margin: 12px 0"
   form.setAttribute("id", "newId");
   cln.appendChild(form);
 };
@@ -35,7 +39,7 @@ async function addIndicacion(id_tarea, tarea, usuario, indicaciones) {
   localStorage.setItem("Token", token);
 
   if (response) {
-    $('#myModal').modal('show');
+    $("#myModal").modal("show");
     $("#myModal").on("hidden.bs.modal", function () {
       location.replace("../flujos/flujos.html");
     });
