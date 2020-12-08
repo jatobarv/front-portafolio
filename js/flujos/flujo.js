@@ -18,6 +18,37 @@ function getTareasAsignadas() {
   return dataPromise;
 }
 
+async function getUsuarios(){
+  const promise = await apiRequest({
+    url: "http://127.0.0.1:8000/usuarios/",
+    method: 'GET',
+    token,
+    action: 'get usuarios'
+  });
+
+  return Object.values(promise.results)
+}
+
+function sendEmail(params) {
+  const {
+    email,
+    subject,
+    body
+  } = params;
+
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "proccess.sa@gmail.com",
+    Password : "5C159BE8B9DAA9955D372885DC8031796AF4",
+    To : email,
+    From : "proccess.sa@gmail.com",
+    Subject : subject,
+    Body : body
+  }).then(
+    message => location.replace("./flujos.html");
+  )
+};
+
 getTareasAsignadas().then((data) => {
   for (const tarea of data) {
     if (username === tarea.nombre_usuario || rol === "Administrador") {
@@ -96,6 +127,17 @@ getTareasAsignadas().then((data) => {
 const d = document;
 const user_id = localStorage.getItem("user_id");
 
+let usuarios;
+
+d.addEventListener("DOMContentLoaded", async () => {
+  try {
+    usuarios = await getUsuarios();
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
 async function reporte(nombre, detalle, tarea, usuario) {
   const response = await apiRequest({
     url: "http://127.0.0.1:8000/reportes/",
@@ -109,11 +151,16 @@ async function reporte(nombre, detalle, tarea, usuario) {
     },
     action: "post reporte",
   });
-  localStorage.setItem("Token", token);
 
+  const usuarioActual = usuarios.find(urs => urs.id == localStorage.getItem('user_id'))
+
+  console.log(usuarioActual)
   if (response) {
-    // localStorage.setItem("Token", response.token);
-    location.replace("./flujos.html");
+    await sendEmail({
+      email:'Liive2woo@gmail.com',
+      subject: `Reporte de tarea ${tarea}: ${nombre}`,
+      body: `${usuarioActual.nombre} ${usuarioActual.apellido} (${usuarioActual.username}): ${detalle}`
+    })
   } else {
     alert("Datos incorrectos");
   }
