@@ -5,6 +5,7 @@ import {
 
 const d = document;
 
+if (!localStorage.getItem('Token'))  location.replace(window.location.origin + '/templates/error.html')
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
     {label: 'Inicio', id: 'navInicio', url: '/templates/principal.html', perms:['Todos']}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
     // {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[0]},
@@ -24,7 +25,7 @@ const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
 d.addEventListener('DOMContentLoaded', (event) => {
     (async function loadMenu(){
         const $fragment = new DocumentFragment() //FRAGMENTO DE HTML PARA AGREGARLE PARAMETROS ANTES DE INSERTARLO TODO EN EL HTML
-        const $nav = d.querySelector('#nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
+        const $nav = d.querySelector('#navbar');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
         const $ul = d.createElement('ul');  //UL PARA AGREGAR LA LISTA
         const $a = document.createElement('a');
         const $img = document.createElement('img');
@@ -41,7 +42,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         let menuLoadedCount = 0;
         menus.forEach(menu => {
             if (!userPerm.admin){
-                if (window.location.href.includes(menu.url) && !userPerm.includes(menu.perms) && menu.perms != "Todos" ) location.replace(window.location.origin + '/templates/error.html')
+                if  (window.location.href.includes(menu.url) && !userPerm.includes(menu.perms) && menu.perms != "Todos" ) location.replace(window.location.origin + '/templates/error.html')
             }
 
             if(userPerm.admin || userPerm.includes(menu.perms) || menu.perms.includes('Todos') && userPerm != -1){
@@ -63,9 +64,6 @@ d.addEventListener('DOMContentLoaded', (event) => {
                 menuLoadedCount++;
             }
         });
-
-
-        if (!menuLoadedCount) location.replace(window.location.origin+'/templates/error.html')
 
         // $ul.classList.add('nav','justify-content-center')
         $ul.className = "navbar-nav mr-auto"

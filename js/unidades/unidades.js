@@ -132,8 +132,6 @@ d.addEventListener('submit', async (event) => {
             body,
             action: internalDriveId ? 'postInternalDrive' : 'putInternalDrive'
         })
-<<<<<<< HEAD
-=======
 
         if (response) {
             $('#myModal').modal('show');
@@ -142,7 +140,6 @@ d.addEventListener('submit', async (event) => {
             });
         }
         loadInternalDrivesList()
->>>>>>> develop
     }
 })
 const user = localStorage.getItem('username');

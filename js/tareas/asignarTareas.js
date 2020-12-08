@@ -4,191 +4,138 @@ const token = localStorage.getItem("Token");
 const d = document;
 const okBtn = d.getElementById("ok");
 
-var nTareas;
 var nPags;
-var tareas = [];
+let tareas;
+let usuarios;
+let tareas_asignadas;
+let funciones;
+let unidades;
 
-function getTareas() {
-    const promise = axios.get(`http://127.0.0.1:8000/tareas/`, {
-        headers: {
-            Authorization: "Token " + token,
-            "Content-Type": "application/json",
-        },
+async function getTareas() {
+    const promise = await apiRequest({
+        url: '/tareas',
+        method: 'GET',
+        token,
+        action: 'get tareas'
     });
 
-    const dataPromise = promise.then((response) => response.data);
-
-    return dataPromise;
+    return Object.values(promise);
 }
 
-getTareas()
-    .then((data) => {
-        nTareas = data.count;
-        console.log(data);
-        nPags = Math.round(nTareas / 10);
-        if (nPags === 0) {
-            nPags = 1;
-        }
-        for (let i = 1; i <= nPags; i++) {
-            axios
-                .get(`http://127.0.0.1:8000/tareas/?page=${i}`, {
-                    headers: {
-                        Authorization: "Token " + token,
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => {
-                    tareas = res.data.results;
-                    console.log(tareas);
+async function getTareasAsignadas() {
+    const promise = await apiRequest({
+        url: '/tareas_asignadas',
+        method: 'GET',
+        token,
+        action: 'get asignar tareas'
+    }); 
 
-                    for (const tarea of tareas) {
-                        var selAsignado = document.getElementById(
-                            "select-tarea"
-                        );
-                        var opt = document.createElement("option");
-                        opt.text = tarea.nombre;
-                        opt.value = tarea.id;
-                        selAsignado.appendChild(opt);
-                    }
-                });
-        }
-    })
-    .catch((err) => console.log(err));
+    return Object.values(promise)
+}
 
-var nAsignado;
-var nPags;
-var usuarios = [];
-
-function getAsignados() {
-    const promise = axios.get(`http://127.0.0.1:8000/usuarios/`, {
-        headers: {
-            Authorization: "Token " + token,
-            "Content-Type": "application/json",
-        },
+async function getUsuarios(){
+    const promise = await apiRequest({
+        url: '/usuarios',
+        method: 'GET',
+        token,
+        action: 'get usuarios'
     });
 
-    const dataPromise = promise.then((response) => response.data);
-
-    return dataPromise;
+    return Object.values(promise)
 }
 
-getAsignados()
-    .then((data) => {
-        nAsignado = data.count;
-        console.log(data);
-        nPags = Math.round(nAsignado / 10);
-        if (nPags === 0) {
-            nPags = 1;
-        }
-        for (let i = 1; i <= nPags; i++) {
-            axios
-                .get(`http://127.0.0.1:8000/usuarios/?page=${i}`, {
-                    headers: {
-                        Authorization: "Token " + token,
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => {
-                    usuarios = res.data.results;
-                    console.log(usuarios);
 
-                    for (const usuario of usuarios) {
-                        var selAsignado = document.getElementById(
-                            "select-asignado"
-                        );
-                        var opt = document.createElement("option");
-                        opt.text = usuario.username;
-                        opt.value = usuario.id;
-                        selAsignado.appendChild(opt);
-                    }
-                });
-        }
+async function getFunciones() {
+    const promise = await apiRequest({
+        url: '/funciones',
+        method: 'GET',
+        token,
+        action: 'get funciones'
     })
-    .catch((err) => console.log(err));
 
-var nFunciones;
-var nPags;
-var funciones = [];
-
-function getFunciones() {
-    const promise = axios.get(`http://127.0.0.1:8000/funciones/`, {
-        headers: {
-            Authorization: "Token " + token,
-            "Content-Type": "application/json",
-        },
-    });
-
-    const dataPromise = promise.then((response) => response.data);
-
-    return dataPromise;
+    return Object.values(promise)
 }
 
-getFunciones()
-    .then((data) => {
-        nFunciones = data.count;
-        console.log(data);
-        nPags = Math.round(nFunciones / 10);
-        if (nPags === 0) {
-            nPags = 1;
-        }
-        for (let i = 1; i <= nPags; i++) {
-            axios
-                .get(`http://127.0.0.1:8000/funciones/?page=${i}`, {
-                    headers: {
-                        Authorization: "Token " + token,
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => {
-                    funciones = res.data.results;
-                    console.log(funciones);
-
-                    for (const funcion of funciones) {
-                        var selCreador = document.getElementById(
-                            "select-funcion"
-                        );
-                        var opt = document.createElement("option");
-                        opt.text = funcion.nombre;
-                        opt.value = funcion.id;
-                        selCreador.appendChild(opt);
-                        console.log(opt.value);
-                    }
-                });
-        }
+async function getUnidades() {
+    const promise = await apiRequest({
+        url: '/unidades',
+        method: 'GET',
+        token,
+        action: 'get unidades'
     })
-    .catch((err) => console.log(err));
 
-async function asignarTareas(
-    fecha_inicio,
-    fecha_termino,
-    terminada,
-    tarea,
-    usuario,
-    funcion,
-    indicacion
-) {
+    return Object.values(promise)
+}
+
+d.addEventListener("DOMContentLoaded", async () => {
+    try {
+        tareas = await getTareas();
+        tareas_asignadas = await getTareasAsignadas();
+        usuarios = await getUsuarios();
+        funciones = await getFunciones();
+        unidades = await getUnidades();
+
+        tareas.forEach( tarea => {
+            var selAsignado = document.getElementById(
+                "select-tarea"
+            );
+            var opt = document.createElement("option");
+            opt.text = tarea["NOMBRE"];
+            opt.value = tarea["ID"];
+            selAsignado.appendChild(opt);
+        });
+
+        usuarios.forEach(usuario => {
+            var selAsignado = document.getElementById(
+                "select-asignado"
+            );
+            var opt = document.createElement("option");
+            opt.text = `${usuario["NOMBRE"]} ${usuario["APELLIDO"]}`;
+            opt.value = usuario["ID"];
+            selAsignado.appendChild(opt);
+        });
+
+        funciones.forEach(funcion => {
+            var selCreador = document.getElementById(
+                "select-funcion"
+            );
+            var opt = document.createElement("option");
+            opt.text = funcion["NOMBRE"];
+            opt.value = funcion["ID"];
+            selCreador.appendChild(opt);
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+async function asignarTareas(params) {
+    const {
+        terminada,
+        id_tarea,
+        id_usuario,
+        id_funcion,
+    } = params;
+
     const response = await apiRequest({
-        url: "http://127.0.0.1:8000/tareas_asignadas/",
+        url: "/tareas_asignadas",
         method: "POST",
         token: token,
         body: {
-            fecha_inicio,
-            fecha_termino,
             terminada,
-            tarea,
-            usuario,
-            funcion,
-            indicacion
+            id_tarea,
+            id_usuario,
+            id_funcion,
         },
         action: "post tareas_asignadas",
     });
-    localStorage.setItem("Token", token);
 
     if (response) {
         $('#myModal').modal('show');
         $('#myModal').on('hidden.bs.modal', function () {
             const idTarea = response.id;
-            location.replace(`./asignarIndicacion.html?id=${idTarea}&tarea=${tarea}`);
+            location.reload();
         });
     } else {
         alert("Datos incorrectos");
@@ -201,14 +148,18 @@ d.addEventListener("submit", (event) => {
     var selTarea = document.getElementById("select-tarea");
     var selAsignado = document.getElementById("select-asignado");
     var selFuncion = document.getElementById("select-funcion");
+
+    const terminada = target.terminada.checked
+    const id_tarea = selTarea.value
+    const id_usuario = selAsignado.value
+    const id_funcion = selFuncion.value
+    
     if (target.id === "tareas_asignadas") {
-        asignarTareas(
-            target.fecha_inicio.value,
-            target.fecha_termino.value,
-            target.terminada.checked,
-            selTarea.value,
-            selAsignado.value,
-            selFuncion.value
-        );
+        asignarTareas({
+            terminada,
+            id_tarea,
+            id_funcion,
+            id_usuario
+        });
     }
 });

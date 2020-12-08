@@ -99,11 +99,7 @@ async function logout(){
     if (response || localStorage.getItem('Token')){
         localStorage.removeItem('Token')
 
-<<<<<<< HEAD
         location.replace(window.location.origin + '/index.html')
-=======
-        location.replace('/index.html')
->>>>>>> develop
     }
 }
 

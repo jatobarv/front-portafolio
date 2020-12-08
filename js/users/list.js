@@ -156,17 +156,6 @@ d.addEventListener('submit', async (event) => {
             method: $userId.value ? 'PUT' : 'POST',
             token: localStorage.getItem('Token'),
             body,
-<<<<<<< HEAD
-            action: 'postUser'
-        })
-        
-        console.log(response)
-        if (response) {
-            // localStorage.setItem("Token", response.token);
-            location.replace("./list.html");
-        }
-
-=======
 						action: 'postUser'
 				})
 				
@@ -176,7 +165,6 @@ d.addEventListener('submit', async (event) => {
                     location.replace("./list.html");
                 });
               }
->>>>>>> develop
         if (users.find((user) => user.id == response.id)){
             users[users.findIndex(user => user.id == response.id)] = response
             loadUserList()
