@@ -86,7 +86,7 @@ async function getPerm(permNumber){
         token
     })
 
-    if (!response.is_superuser){
+    if (response && !response.is_superuser){
         response = await apiRequest({
             url: 'http://127.0.0.1:8000/roles/'+response.rol_usuario,
             method: 'GET',

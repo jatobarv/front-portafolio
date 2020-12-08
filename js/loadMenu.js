@@ -21,7 +21,7 @@ const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
 ]
 
 
-d.addEventListener('DOMContentLoaded', (event) => {
+d.addEventListener('DOMContentLoaded', async (event) => {
     (async function loadMenu(){
         const $fragment = new DocumentFragment() //FRAGMENTO DE HTML PARA AGREGARLE PARAMETROS ANTES DE INSERTARLO TODO EN EL HTML
         const $nav = d.querySelector('#nav');   //DIV CON ID NAV PARA INTERSAR LOS MENUS
