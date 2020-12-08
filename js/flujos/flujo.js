@@ -44,9 +44,7 @@ function sendEmail(params) {
     From : "proccess.sa@gmail.com",
     Subject : subject,
     Body : body
-  }).then(
-    message => location.replace("./flujos.html");
-  )
+  }).then( message => location.replace("./flujos.html"));
 };
 
 getTareasAsignadas().then((data) => {
