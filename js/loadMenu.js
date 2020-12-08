@@ -6,7 +6,7 @@ import {
 const d = document;
 
 const menus = [  //ARREGLO DE LOS MENUS QUE VAS A CARGAR
-    {label: 'Inicio', id: 'navInicio', url: '/templates/principal.html', perms:['Todos']}, // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
+    // OBJETO CON LABEL (LO QUE SE MOSTRARA EN EL MENU) URL (DIRECCION DEL HTML)  PERM (EL USUARIO QUE LOS PUEDE VER)
     // {label: 'Mantenedores', id:'navMantenedores', url: '#', perms:[0]},
     // {label: 'Cuenta', id:'navCuenta', url: '#', perms:[0]},
     {label: 'Roles', id:'navAddRoles', url: '/templates/roles/addRoles.html', perms:['Todos',]},
@@ -29,7 +29,7 @@ d.addEventListener('DOMContentLoaded', (event) => {
         const $a = document.createElement('a');
         const $img = document.createElement('img');
         const $div = d.getElementById('navbar');
-        $img.src = "/templates/1jojVVCOMkX9Wyrexe4hGfJzKnTVQMg33Tpig3aD1fqVY4nScqgfVt8PQ8LwtFvwhKxkECc8A9jix8V4IQhQw0oWDTcNYcHj1zzw.png"
+        $img.src = "/templates/ico.png"
         $img.width = 116;
         $img.height = 64;
         // $img.className = 'd-inline-block align-top'

@@ -28,7 +28,7 @@ async function login(username, password){
     if (response) {
         localStorage.setItem('Token', response.token )
         localStorage.setItem('username', username )
-        location.replace('./templates/principal.html')
+        location.replace(location.origin + '/templates/flujos/flujos.html')
     }else{
         alert('Usuario y/o Contraseña Inválidos')
     }
