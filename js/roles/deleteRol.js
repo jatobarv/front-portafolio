@@ -21,7 +21,7 @@ function getPermisos() {
 // };
 
 getPermisos().then((data) => {
-  for (const permiso of data.results) {
+  for (const permiso of data) {
     var sel = document.getElementById("table-body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");

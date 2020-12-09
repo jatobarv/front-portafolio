@@ -95,7 +95,7 @@ async function getPerm(permNumber){
         })
     }else{
         response = {
-            name: 'Dueño'
+            name: 'Administrador'
         }
     }
 

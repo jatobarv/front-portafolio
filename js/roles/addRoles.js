@@ -28,23 +28,10 @@ function getPermisos() {
 
 getPermisos()
   .then((data) => {
-    nPermisos = data.count;
-    nPags = Math.round(nPermisos / 10);
-    if (nPags === 0) {
-      nPags = 1;
-    }
-    for (let i = 1; i <= nPags; i++) {
-      axios
-        .get(`http://127.0.0.1:8000/permisos/?page=${i}`, {
-          headers: {
-            Authorization: "Token " + token,
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          permisos = res.data.results;
+    console.log(data);
 
-          for (const permiso of permisos) {
+
+          data.sort((a, b) => a.codename > b.codename ? -1 : a.codename < b.codename ? 1 : 0).forEach(permiso => {
             var sel = document.getElementById("select-permisos");
 
             var opt = document.createElement("option");
@@ -56,10 +43,9 @@ getPermisos()
             opt.value = permiso.id;
 
             sel.appendChild(opt);
-          }
-        });
-    }
-  })
+
+          })
+        })
   .catch((err) => console.log(err));
 
 async function addRol(name, permissions) {

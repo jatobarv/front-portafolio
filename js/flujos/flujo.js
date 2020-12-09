@@ -1,11 +1,12 @@
 import { apiRequest } from "../module.js";
 const token = localStorage.getItem("Token");
-
+let usuario;
+let roles;
+let rol;
 let arrTareas = [];
 const username = localStorage.getItem("username");
-const rol = localStorage.getItem("rol");
 
-function getTareasAsignadas() {
+async function getTareasAsignadas() {
   const promise = axios.get(`http://127.0.0.1:8000/tareas_asignadas/`, {
     headers: {
       Authorization: "Token " + token,
@@ -29,6 +30,17 @@ async function getUsuarios(){
   return Object.values(promise.results)
 }
 
+async function getRoles(){
+  const promise = await apiRequest({
+    url: "http://127.0.0.1:8000/roles/",
+    method: 'GET',
+    token,
+    action: 'get roles'
+  });
+
+  return Object.values(promise)
+}
+
 function sendEmail(params) {
   const {
     email,
@@ -47,9 +59,9 @@ function sendEmail(params) {
   }).then( message => location.replace("./flujos.html"));
 };
 
-getTareasAsignadas().then((data) => {
+async function cargarTabla(data) {
   for (const tarea of data) {
-    if (username === tarea.nombre_usuario || rol === "Administrador") {
+    if (username === tarea.nombre_usuario || rol.name === "Administrador" || rol.name === "Diseñador") {
       var sel = document.getElementById("table-body");
       var tr = document.createElement("tr");
       var tdId = document.createElement("td");
@@ -120,7 +132,7 @@ getTareasAsignadas().then((data) => {
       }
     }
   }
-});
+};
 
 const d = document;
 const user_id = localStorage.getItem("user_id");
@@ -130,7 +142,11 @@ let usuarios;
 d.addEventListener("DOMContentLoaded", async () => {
   try {
     usuarios = await getUsuarios();
-
+    roles = await getRoles();
+    usuario = usuarios.find(usr => usr.username == localStorage.getItem('username'));
+    rol = roles.find(rl => rl.id == usuario.rol_usuario);
+    const tareas = await getTareasAsignadas();
+    cargarTabla(tareas);
   } catch (error) {
     console.log(error)
   }
@@ -155,9 +171,24 @@ async function reporte(nombre, detalle, tarea, usuario) {
   console.log(usuarioActual)
   if (response) {
     await sendEmail({
-      email:'Liive2woo@gmail.com',
+      email:'javiertobarvera@gmail.com',
       subject: `Reporte de tarea ${tarea}: ${nombre}`,
-      body: `${usuarioActual.nombre} ${usuarioActual.apellido} (${usuarioActual.username}): ${detalle}`
+      body:`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+      </head>
+      <body style="max-width: 600px; margin: auto; border: 1px solid rgb(230, 230, 230) font-family: 'Asap', sans-serif; font-size: 12px; text-align:center;">
+          <h1 style="text-align: center; width: 100%;">Reporte de tarea</h1>
+          <p>Usuario: ${usuarioActual.username}</p>
+          <p>Nombre: ${usuarioActual.nombre} ${usuarioActual.apellido}</p>
+          <label for="">Detalle:</label>
+          <p>${detalle}</p>
+      </body>
+      </html>`
     })
   } else {
     alert("Datos incorrectos");

@@ -85,7 +85,7 @@ d.addEventListener('DOMContentLoaded', async (event) => {
     });
 
     $fragment.innerHTML = '';
-    roles.results.forEach(rol => {
+    roles.forEach(rol => {
         const $option = d.createElement('option')
         $option.value = rol.id
         $option.textContent = rol.name
