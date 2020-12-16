@@ -3,7 +3,8 @@ const token = localStorage.getItem("Token");
 let usuario;
 let roles;
 let rol;
-let arrTareas = [];
+let funciones;
+let tareas;
 const username = localStorage.getItem("username");
 
 async function getTareasAsignadas() {
@@ -39,6 +40,17 @@ async function getRoles(){
   });
 
   return Object.values(promise)
+}
+
+async function getFunciones(){
+  const promise = await apiRequest({
+    url: "http://127.0.0.1:8000/funciones/",
+    method: 'GET',
+    token,
+    action: 'get roles'
+  });
+
+  return Object.values(promise.results)
 }
 
 function sendEmail(params) {
@@ -143,9 +155,11 @@ d.addEventListener("DOMContentLoaded", async () => {
   try {
     usuarios = await getUsuarios();
     roles = await getRoles();
+    tareas = await getTareasAsignadas();
+    funciones = await getFunciones();
+    console.log(funciones)
     usuario = usuarios.find(usr => usr.username == localStorage.getItem('username'));
     rol = roles.find(rl => rl.id == usuario.rol_usuario);
-    const tareas = await getTareasAsignadas();
     cargarTabla(tareas);
   } catch (error) {
     console.log(error)
@@ -208,3 +222,55 @@ d.addEventListener("submit", (event) => {
     );
   }
 });
+
+d.addEventListener("click", async (event) => {
+  const target = event.target
+  if (target.getAttribute("name") ) {
+    const $table = d.getElementById("table");
+    const printWindow = window.open('', '', 'height=1000 ,width=1000');
+    printWindow.document.write(`<html><head><title>DIV Contents</title>`);
+    printWindow.document.write('</head><body style="align-items: center;">');
+    printWindow.document.write('<table>');
+    printWindow.document.write(`
+      <thead class="thead-light">
+        <tr style="border: 1px solid black;">
+          <th style="background-color: #add8e6; color: #000">ID Tarea</th>
+          <th style="background-color: #add8e6; color: #000">
+            Nombre Tarea
+          </th>
+          <th style="background-color: #add8e6; color: #000">
+            Descripción Tarea
+          </th>
+          <th style="background-color: #add8e6; color: #000">
+            Fecha Inicio
+          </th>
+          <th style="background-color: #add8e6; color: #000">
+            Fecha Término
+          </th>
+          <th style="background-color: #add8e6; color: #000">Asignado</th>
+          <th style="background-color: #add8e6; color: #000">Funcion</th>
+        </tr>
+      </thead>
+      <tbody>
+    `);
+    tareas.forEach(tarea => {
+      console.log(tarea)
+      printWindow.document.write(`
+      <tr>
+        <td>${tarea.id}</td>
+        <td>${tarea.nombre_tarea}</td>
+        <td>${tarea.descripcion_tarea}</td>
+        <td>${tarea.fecha_inicio}</td>
+        <td>${tarea.fecha_termino}</td>
+        <td>${tarea.nombre_usuario}</td>
+        <td>${tarea.nombre_funcion}</td>
+      </tr>
+      `)
+    })
+    printWindow.document.write('</tbody></table></body></html>');
+    printWindow.document.close();
+    setTimeout(function () {
+      printWindow.print();
+    }, 500);
+  }
+})

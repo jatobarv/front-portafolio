@@ -59,6 +59,41 @@
       <div class="collapse navbar-collapse" id="nav"></div>
     </div>
     <div class="container">
+      <div>
+        <div class="table-responsive" style="max-height: 300px">
+          <table
+            class="table table-bordered text-center"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead class="thead-light">
+              <tr>
+                <th style="background-color: #add8e6; color: #000">Id</th>
+                <th style="background-color: #add8e6; color: #000">Fecha inicio</th>
+                <th style="background-color: #add8e6; color: #000">Fecha termino</th>
+                <th style="background-color: #add8e6; color: #000">Tarea</th>
+                <th style="background-color: #add8e6; color: #000">Asignado</th>
+                <th style="background-color: #add8e6; color: #000">Función</th>
+                <th style="background-color: #add8e6; color: #000">Terminada</th>
+                <th style="background-color: #add8e6; color: #000">Acción</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <template id="internalDrivesTemplate">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </template>
+      </div>
       <form
         id="tareas_asignadas"
         autocomplete="off"
@@ -67,6 +102,7 @@
         <div class="form-group">
           <label for="fecha_inicio">Fecha Inicio</label>
           <input
+            id="fecha_inicio"
             class="form-control"
             name="fecha_inicio"
             type="date"
@@ -77,6 +113,7 @@
         <div class="form-group">
           <label for="fecha_termino">Fecha Término</label>
           <input
+            id="fecha_termino"
             class="form-control"
             name="fecha_termino"
             type="date"
@@ -85,7 +122,7 @@
           />
         </div>
         <div class="form-check">
-          <input class="form-check-input" name="terminada" type="checkbox" />
+          <input class="form-check-input" name="terminada" id="terminada" type="checkbox" />
           <label class="form-check-label" for="terminada">Terminada</label>
         </div>
         <div class="form-group">
@@ -124,6 +161,7 @@
         >
           Asignar Tarea
         </button>
+        <input id="tareaAsignadaId" type="hidden" />
       </form>
     </div>
 
